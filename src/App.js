@@ -20,7 +20,7 @@ function App() {
     <div className="App">
       <h1 style={{width: '90%', margin: 'auto'}}>Automata simulator</h1>
       <GraphComponent currentMode={currentMode} transitionStartNode={transitionStartNode} transitionStartNodeCallback={transitionStartNodeCallback}/>
-      <ToolBar currentModeCallback={currentModeCallback} currentMode={currentMode} transitionStartNodeCallback={transitionStartNodeCallback} ></ToolBar>
+      <ToolBar currentModeCallback={currentModeCallback} currentMode={currentMode} transitionStartNodeCallback={transitionStartNodeCallback} transitionStartNode={transitionStartNode}></ToolBar>
     </div>
   );
 }

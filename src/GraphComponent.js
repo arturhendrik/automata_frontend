@@ -52,28 +52,55 @@ class GraphComponent extends Component {
         }
       },
       interaction: {
-        hover: true,
-        dragView: false,  // Disable dragging of the canvas background
+        hover: true
+        //dragView: false,  // Disable dragging of the canvas background
       },
       manipulation: {
-        enabled: false, // Disable node manipulation
+        enabled: false // Disable node manipulation
       },
       physics: {
-        enabled: false, // Disable physics simulation
+        enabled: false // Disable physics simulation
       }
     };
+
+    function updateGraph(data) {
+      // store previous view properties to avoid vis.js auto view move
+      const previousScale = network.getScale();
+      const previousViewPosition = network.getViewPosition();
+  
+      network.setData(data);
+  
+      // restore previous view properties
+      network.moveTo({
+          position: previousViewPosition,
+          scale: previousScale,
+          offset: { x: 0, y: 0 }
+      });
+    }
 
     const network = new Network(container, data, options);
 
     network.on('click', (params) => {
+      //console.log(params)
+      //console.log(params.pointer);
       if (params.nodes.length === 0) {
         if (this.props.currentMode === "NEW_STATE") {
-          const position = params.pointer.DOM;
-          const newNodeId = data.nodes.length > 0 ? data.nodes[data.nodes.length-1].id + 1 : 1 ;
+          const position = params.pointer.canvas;
+          const newNodeId = data.nodes.length > 0 ? data.nodes[data.nodes.length-1].id + 1 : 1;
           const newNode = { id: newNodeId, label: `Q${newNodeId}`, x: position.x, y: position.y };
           data.nodes.push(newNode);
-          network.setData(data);
-          network.canvas.body.view.translation = {x: 0, y: 0};
+
+          updateGraph(data);
+        }
+        else if (params.edges.length === 1) {
+          if (this.props.currentMode === "DELETE") {
+            const indexToDelete = data.edges.findIndex(item => item.id === params.edges[0]);
+            //console.log(data.edges);
+            //console.log(params.edges);
+            //console.log(indexToDelete);
+            data.edges.splice(indexToDelete, 1);
+            updateGraph(data);
+          }
         }
       }
       else if (params.nodes.length === 1) {
@@ -86,8 +113,7 @@ class GraphComponent extends Component {
               data.edges.splice(i, 1);
             }
           }
-          network.setData(data);
-          network.canvas.body.view.translation = {x: 0, y: 0};
+          updateGraph(data);
         }
         if (this.props.currentMode === "NEW_TRANSITION") {
           if (this.props.transitionStartNode) {
@@ -100,9 +126,8 @@ class GraphComponent extends Component {
               let exists = data.edges.some(edge => edge.from === newTransition.from && edge.to === newTransition.to && edge.label === newTransition.label);
               if (!exists) {
                 data.edges.push(newTransition);
-                network.setData(data);
-                network.canvas.body.view.translation = {x: 0, y: 0};
-                console.log(data.edges)
+                updateGraph(data);
+                //console.log(data.edges)
             }
             }
             this.props.transitionStartNodeCallback(null);
@@ -112,6 +137,17 @@ class GraphComponent extends Component {
             this.props.transitionStartNodeCallback(params.nodes[0]);
           }
         }
+      }
+    });
+
+    network.on("dragEnd", (params) => {
+      if (params.nodes.length > 0) {
+        //console.log(params);
+        const position = params.pointer.canvas;
+        const indexToChange = data.nodes.findIndex(item => item.id === params.nodes[0]);
+        data.nodes[indexToChange].x = position.x;
+        data.nodes[indexToChange].y = position.y;
+        updateGraph(data);
       }
     });
   }
