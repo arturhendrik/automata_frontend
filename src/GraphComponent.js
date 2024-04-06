@@ -63,6 +63,67 @@ class GraphComponent extends Component {
       }
     };
 
+    this.generateXml = () => {      
+      let xmlString = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <structure>
+    <type>fa</type>
+    <automaton>
+      <!--The list of states.-->`;
+  
+      data.nodes.forEach(node => {
+        const coords = {x: node.x, y: node.y};
+        const coordsConversion = network.canvasToDOM(coords);
+        console.log(node.x, node.y);
+        console.log(coordsConversion);
+        xmlString += `
+      <state id="${node.id}" name="${node.label}">
+        <x>${coordsConversion.x}</x>
+        <y>${coordsConversion.y}</y>`;
+        // if (state.initial) {
+        //   xmlString += `
+        // <initial/>`;
+        // }
+        // if (state.final) {
+        //   xmlString += `
+        // <final/>`;
+        // }
+        xmlString += `
+      </state>`;
+      });
+  
+      xmlString += `
+      <!--The list of transitions.-->`;
+  
+      data.edges.forEach(edge => {
+        xmlString += `
+      <transition>
+        <from>${edge.from}</from>
+        <to>${edge.to}</to>
+        <read>${edge.label}</read>
+      </transition>`;
+      });
+  
+      xmlString += `
+    </automaton>
+  </structure>`;
+  
+      return xmlString;
+    };
+  
+    this.handleSave = () => {
+      const xmlString = this.generateXml();
+      const blob = new Blob([xmlString], { type: 'text/xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'automaton.jff';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    };
+
+
     function updateGraph(data) {
       // store previous view properties to avoid vis.js auto view move
       const previousScale = network.getScale();
@@ -153,7 +214,10 @@ class GraphComponent extends Component {
   }
 
   render() {
-    return <div id="network" style={{ width: '90%', height: '450px', border: '2px solid black', margin: 'auto' }} />;
+    return <div>
+      <div id="network" style={{ width: '90%', height: '450px', border: '2px solid black', margin: 'auto' }} />
+      <button onClick={() => this.handleSave()}>save</button>
+    </div>;
   }
 }
 
