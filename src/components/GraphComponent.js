@@ -1,24 +1,33 @@
 import React, { Component } from 'react';
 import { Network } from 'vis-network';
+import CustomContextMenu from '../components/CustomContextMenu';
 
 class GraphComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { currentMode: props.currentMode, transitionStartNode: props.transitionStartNode, transitionStartNodeCallback: props.transitionStartNodeCallback };
+    this.state = {
+      currentMode: props.currentMode,
+      transitionStartNode: props.transitionStartNode,
+      transitionStartNodeCallback: props.transitionStartNodeCallback,
+      menuPositionCallback: props.menuPositionCallback,
+      contextMenuVisibleCallback: props.contextMenuVisibleCallback,
+      menuPosition: props.menuPosition,
+      isContextMenuVisible: props.isContextMenuVisible,
+      data: props.data,
+      dataCallback: props.dataCallback,
+      indexOfNodeOnContext: props.indexOfNodeOnContext,
+      indexOfNodeOnContextCallback: props.indexOfNodeOnContextCallback,
+    };
   }
 
   componentDidMount() {
     // Create a new network instance
     const container = document.getElementById('network');
-    const data = {
-      nodes: [],
-      edges: [],
-    };
+    const data = this.props.data;
     const options = {
       nodes: {
         font: {
-          color: "#000000",
           face: "Libre Baskerville"
         },
         shape: "circle",
@@ -51,9 +60,13 @@ class GraphComponent extends Component {
           roundness: 0.2 // adjust the roundness of the curve (0 to 1)
         }
       },
+      groups: {
+        Initial: { color: 'green' },
+        normal: { color: 'white' },
+        Final: { color: 'red' }
+      },
       interaction: {
         hover: true
-        //dragView: false,  // Disable dragging of the canvas background
       },
       manipulation: {
         enabled: false // Disable node manipulation
@@ -63,138 +76,93 @@ class GraphComponent extends Component {
       }
     };
 
-    this.generateXml = () => {      
-      let xmlString = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-  <structure>
-    <type>fa</type>
-    <automaton>
-      <!--The list of states.-->`;
-  
-      data.nodes.forEach(node => {
-        const coords = {x: node.x, y: node.y};
-        const coordsConversion = network.canvasToDOM(coords);
-        console.log(node.x, node.y);
-        console.log(coordsConversion);
-        xmlString += `
-      <state id="${node.id}" name="${node.label}">
-        <x>${coordsConversion.x}</x>
-        <y>${coordsConversion.y}</y>`;
-        // if (state.initial) {
-        //   xmlString += `
-        // <initial/>`;
-        // }
-        // if (state.final) {
-        //   xmlString += `
-        // <final/>`;
-        // }
-        xmlString += `
-      </state>`;
-      });
-  
-      xmlString += `
-      <!--The list of transitions.-->`;
-  
-      data.edges.forEach(edge => {
-        xmlString += `
-      <transition>
-        <from>${edge.from}</from>
-        <to>${edge.to}</to>
-        <read>${edge.label}</read>
-      </transition>`;
-      });
-  
-      xmlString += `
-    </automaton>
-  </structure>`;
-  
-      return xmlString;
-    };
-  
-    this.handleSave = () => {
-      const xmlString = this.generateXml();
-      const blob = new Blob([xmlString], { type: 'text/xml' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'automaton.jff';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    };
-
-
-    function updateGraph(data) {
+    this.updateGraph = (data) => {
       // store previous view properties to avoid vis.js auto view move
       const previousScale = network.getScale();
       const previousViewPosition = network.getViewPosition();
-  
+
       network.setData(data);
-  
+
       // restore previous view properties
       network.moveTo({
-          position: previousViewPosition,
-          scale: previousScale,
-          offset: { x: 0, y: 0 }
+        position: previousViewPosition,
+        scale: previousScale,
+        offset: { x: 0, y: 0 }
       });
-    }
+      const coordinatesToDOM = data.nodes.map(node => {
+        const { x, y } = network.canvasToDOM({ x: node.x, y: node.y });
+        return { ...node, x, y };
+      });
+      const updatedData = {
+        nodes: coordinatesToDOM,
+        edges: data.edges
+      }
+      this.props.dataCallback(updatedData);
+    };
+    this.handleCloseContextMenu = () => {
+      this.props.contextMenuVisibleCallback(false);
+      this.props.indexOfNodeOnContextCallback(null);
+    };
+    this.handleContextMenuOptionSelected = (option) => {
+      if (option === "Initial") {
+        const initialNode = data.nodes.find(node => node.group === "Initial");
+        if (initialNode) {
+          const indexChangeToNormal = data.nodes.findIndex(item => item.id === initialNode.id);
+          data.nodes[indexChangeToNormal].group = "normal";
+        }
+      }
+      data.nodes[this.props.indexOfNodeOnContext].group = option;
+      this.updateGraph(data);
+    };
 
     const network = new Network(container, data, options);
 
     network.on('click', (params) => {
-      //console.log(params)
-      //console.log(params.pointer);
+      this.handleCloseContextMenu();
       if (params.nodes.length === 0) {
         if (this.props.currentMode === "NEW_STATE") {
           const position = params.pointer.canvas;
-          const newNodeId = data.nodes.length > 0 ? data.nodes[data.nodes.length-1].id + 1 : 1;
-          const newNode = { id: newNodeId, label: `Q${newNodeId}`, x: position.x, y: position.y };
+          const newNodeId = data.nodes.length > 0 ? data.nodes[data.nodes.length - 1].id + 1 : 1;
+          const newNode = { id: newNodeId, group: 'normal', label: `Q${newNodeId}`, x: position.x, y: position.y };
           data.nodes.push(newNode);
-
-          updateGraph(data);
+          this.updateGraph(data);
         }
         else if (params.edges.length === 1) {
           if (this.props.currentMode === "DELETE") {
             const indexToDelete = data.edges.findIndex(item => item.id === params.edges[0]);
-            //console.log(data.edges);
-            //console.log(params.edges);
-            //console.log(indexToDelete);
             data.edges.splice(indexToDelete, 1);
-            updateGraph(data);
+            this.updateGraph(data);
           }
         }
       }
       else if (params.nodes.length === 1) {
         if (this.props.currentMode === "DELETE") {
           const indexToDelete = data.nodes.findIndex(item => item.id === params.nodes[0]);
-          //console.log(params.nodes);
           data.nodes.splice(indexToDelete, 1);
           for (let i = data.edges.length - 1; i >= 0; i--) {
             if (data.edges[i].from === params.nodes[0] || data.edges[i].to === params.nodes[0]) {
               data.edges.splice(i, 1);
             }
           }
-          updateGraph(data);
+          this.updateGraph(data);
         }
         if (this.props.currentMode === "NEW_TRANSITION") {
           if (this.props.transitionStartNode) {
-            let labelInput = prompt("Enter the label for the transition:");
+            let labelInput = prompt("Enter the symbol for the transition:");
             if (labelInput === '') {
               labelInput = 'λ';
             }
             if (labelInput !== null) {
-              const newTransition = {from: this.props.transitionStartNode, to: params.nodes[0], label: labelInput};
+              const newTransition = { from: this.props.transitionStartNode, to: params.nodes[0], label: labelInput };
               let exists = data.edges.some(edge => edge.from === newTransition.from && edge.to === newTransition.to && edge.label === newTransition.label);
               if (!exists) {
                 data.edges.push(newTransition);
-                updateGraph(data);
-                //console.log(data.edges)
-            }
+                this.updateGraph(data);
+              }
             }
             this.props.transitionStartNodeCallback(null);
           }
           else {
-            //console.log(params.nodes);
             this.props.transitionStartNodeCallback(params.nodes[0]);
           }
         }
@@ -203,21 +171,43 @@ class GraphComponent extends Component {
 
     network.on("dragEnd", (params) => {
       if (params.nodes.length > 0) {
-        //console.log(params);
         const position = params.pointer.canvas;
         const indexToChange = data.nodes.findIndex(item => item.id === params.nodes[0]);
         data.nodes[indexToChange].x = position.x;
         data.nodes[indexToChange].y = position.y;
-        updateGraph(data);
+        this.updateGraph(data);
       }
     });
+
+    network.on("oncontext", (params) => {
+      const node = network.getNodeAt(params.pointer.DOM);
+      params.event.preventDefault();
+      if (node) {
+        this.props.menuPositionCallback(params.pointer.DOM);
+        this.props.contextMenuVisibleCallback(true);
+        const indexToChange = data.nodes.findIndex(item => item.id === node);
+        this.props.indexOfNodeOnContextCallback(indexToChange);
+      }
+    });
+
+    network.on("dragStart", () => {
+      this.handleCloseContextMenu();
+    })
   }
 
   render() {
     return <div>
-      <div id="network" style={{ width: '90%', height: '450px', border: '2px solid black', margin: 'auto' }} />
-      <button onClick={() => this.handleSave()}>save</button>
+      <div id="network" style={{ width: '90%', height: '450px', border: '2px solid black', margin: 'auto', backgroundColor: '#f2ecd3' }} />
+      {this.props.isContextMenuVisible && (
+        <CustomContextMenu
+          xPos={this.props.menuPosition.x}
+          yPos={this.props.menuPosition.y}
+          onClose={this.handleCloseContextMenu}
+          optionSelectedCallback={this.handleContextMenuOptionSelected}
+        />
+      )}
     </div>;
+
   }
 }
 
