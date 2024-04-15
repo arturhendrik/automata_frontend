@@ -18,6 +18,11 @@ function generateXml (data) {
         xmlString += `
       <final/>`;
       }
+      if (node.group === "Initial_Final") {
+        xmlString += `
+      <initial/>
+      <final/>`;
+      }
       xmlString += `
     </state>`;
     });

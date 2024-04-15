@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Network } from 'vis-network';
 import CustomContextMenu from '../components/CustomContextMenu';
+import { customFinalState, customInitialFinalState, customInitialState } from '../utils/customStates';
 
 class GraphComponent extends Component {
 
@@ -18,6 +19,7 @@ class GraphComponent extends Component {
       dataCallback: props.dataCallback,
       indexOfNodeOnContext: props.indexOfNodeOnContext,
       indexOfNodeOnContextCallback: props.indexOfNodeOnContextCallback,
+      selectedValue: undefined
     };
   }
 
@@ -27,19 +29,23 @@ class GraphComponent extends Component {
     const data = this.props.data;
     const options = {
       nodes: {
+        borderWidth: 1,
+        borderWidthSelected: 1,
         font: {
-          face: "Libre Baskerville"
+          size: 14,
+          face: "sans-serif"
         },
         shape: "circle",
         margin: 15,
-        shapeProperties: {
-          borderRadius: 20
-        },
-        shadow: {
-          enabled: true,
-          size: 3,
-          x: 3,
-          y: 3
+        color: {
+          background: 'white',
+          border: 'black',
+          hover: {
+            border: 'black'
+          },
+          highlight: {
+            border: 'black'
+          },          
         }
       },
       edges: {
@@ -61,9 +67,18 @@ class GraphComponent extends Component {
         }
       },
       groups: {
-        Initial: { color: 'green' },
-        normal: { color: 'white' },
-        Final: { color: 'red' }
+        Initial: { 
+          shape: 'custom',
+          ctxRenderer: customInitialState
+        },
+        Final: {
+          shape: "custom",
+          ctxRenderer: customFinalState
+        },
+        Initial_Final: { 
+          shape: "custom",
+          ctxRenderer: customInitialFinalState
+        }
       },
       interaction: {
         hover: true
@@ -104,11 +119,16 @@ class GraphComponent extends Component {
       this.props.indexOfNodeOnContextCallback(null);
     };
     this.handleContextMenuOptionSelected = (option) => {
-      if (option === "Initial") {
-        const initialNode = data.nodes.find(node => node.group === "Initial");
+      if (option === "Initial" || option === "Initial_Final") {
+        const initialNode = data.nodes.find(node => node.group === "Initial" || node.group === "Initial_Final");
         if (initialNode) {
           const indexChangeToNormal = data.nodes.findIndex(item => item.id === initialNode.id);
-          data.nodes[indexChangeToNormal].group = "normal";
+          if (data.nodes[indexChangeToNormal].group === "Initial_Final") {
+            data.nodes[indexChangeToNormal].group = "Final";
+          }
+          else {
+            data.nodes[indexChangeToNormal].group = undefined;
+          }
         }
       }
       data.nodes[this.props.indexOfNodeOnContext].group = option;
@@ -123,7 +143,7 @@ class GraphComponent extends Component {
         if (this.props.currentMode === "NEW_STATE") {
           const position = params.pointer.canvas;
           const newNodeId = data.nodes.length > 0 ? data.nodes[data.nodes.length - 1].id + 1 : 1;
-          const newNode = { id: newNodeId, group: 'normal', label: `Q${newNodeId}`, x: position.x, y: position.y };
+          const newNode = { id: newNodeId, label: `Q${newNodeId}`, x: position.x, y: position.y };
           data.nodes.push(newNode);
           this.updateGraph(data);
         }
@@ -187,6 +207,8 @@ class GraphComponent extends Component {
         this.props.contextMenuVisibleCallback(true);
         const indexToChange = data.nodes.findIndex(item => item.id === node);
         this.props.indexOfNodeOnContextCallback(indexToChange);
+        const selectedNode = data.nodes[indexToChange];
+        this.setState({ selectedValue: selectedNode.group });
       }
     });
 
@@ -197,13 +219,14 @@ class GraphComponent extends Component {
 
   render() {
     return <div>
-      <div id="network" style={{ width: '90%', height: '450px', border: '2px solid black', margin: 'auto', backgroundColor: '#f2ecd3' }} />
+      <div id="network" style={{ width: '90%', height: '450px', border: '2px solid black', margin: 'auto' }} />
       {this.props.isContextMenuVisible && (
         <CustomContextMenu
           xPos={this.props.menuPosition.x}
           yPos={this.props.menuPosition.y}
           onClose={this.handleCloseContextMenu}
           optionSelectedCallback={this.handleContextMenuOptionSelected}
+          selectedOption={this.state.selectedValue}
         />
       )}
     </div>;
