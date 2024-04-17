@@ -1,11 +1,13 @@
 import React from 'react';
-import {handleSave} from "../utils/downloadAutomata"
+import {handleSave} from "../utils/downloadAutomata";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
-const SaveButton = ({ data, fileName }) => {
+const SaveButton = ({ data, fileName, currentModeCallback }) => {
   return (
-    <button onClick={() => handleSave(data, fileName)}style={{marginBottom: '10px'}}>
-      Lae alla
-    </button>
+    <label className='button' onClick={() => handleSave(data, fileName, currentModeCallback)}>
+      <FontAwesomeIcon icon={faDownload} />
+    </label>
   );
 };
 

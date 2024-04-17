@@ -46,7 +46,8 @@ function generateXml (data) {
     return xmlString;
   };
 
-  function handleSave (data, fileName) {
+  function handleSave (data, fileName, currentModeCallback) {
+    currentModeCallback(null);
     const xmlString = generateXml(data);
     const blob = new Blob([xmlString], { type: 'text/xml' });
     const url = URL.createObjectURL(blob);

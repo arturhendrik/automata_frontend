@@ -1,5 +1,5 @@
 function customFinalState ({ ctx, x, y, state: { selected, hover }, style, label }) {
-    const outerRadius = style.size || 20; // Outer radius of the circle
+    const outerRadius = style.size; // Outer radius of the circle
     const innerRadius = outerRadius - 4; // Inner radius for the double border
     
     // Draw outer circle (outer border)
@@ -34,7 +34,7 @@ function customFinalState ({ ctx, x, y, state: { selected, hover }, style, label
 }
 
 function customInitialState ({ ctx, x, y, state: { selected, hover }, style, label }) {
-    const radius = style.size || 20; // Radius of the circle
+    const radius = style.size; // Radius of the circle
     const triangleSize = radius * 1; // Size of the triangle relative to the circle radius
     const triangleOffset = radius * 1.05; // Offset of the triangle from the center of the circle
 
@@ -69,12 +69,12 @@ function customInitialState ({ ctx, x, y, state: { selected, hover }, style, lab
     
     return {
       // Dimensions of the node for the layout algorithm
-      nodeDimensions: { width: 2 * (radius + triangleOffset), height: 2 * radius },
+      nodeDimensions: { width: 2 * radius, height: 2 * radius },
     };
 }
 
 function customInitialFinalState ({ ctx, x, y, state: { selected, hover }, style, label }) {
-  const outerRadius = style.size || 20; // Outer radius of the circle
+  const outerRadius = style.size; // Outer radius of the circle
   const innerRadius = outerRadius - 4; // Inner radius for the double border
   const triangleSize = outerRadius * 1; // Size of the triangle relative to the circle radius
   const triangleOffset = outerRadius * 1.05; // Offset of the triangle from the center of the circle
@@ -122,4 +122,29 @@ function customInitialFinalState ({ ctx, x, y, state: { selected, hover }, style
   };
 }
 
-export {customFinalState, customInitialState, customInitialFinalState}
+function customNormalState ({ ctx, x, y, state: { selected, hover }, style, label }) {
+  const radius = style.size;
+  
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, 2 * Math.PI);
+  ctx.fillStyle = style.color;
+  ctx.fill();
+  ctx.strokeStyle = 'black'
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.closePath();
+
+  // Draw label
+  ctx.font = 'normal 14px sans-serif';
+  ctx.fillStyle = 'black'; // Label color
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(label, x, y);
+  
+  return {
+    // Dimensions of the node for the layout algorithm
+    nodeDimensions: { width: 2 * radius, height: 2 * radius },
+  };
+}
+
+export {customFinalState, customInitialState, customInitialFinalState, customNormalState}

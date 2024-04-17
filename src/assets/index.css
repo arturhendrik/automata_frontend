@@ -11,3 +11,44 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.button {
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 10px;
+  background-color: #c4a5a3;
+  color: #fff;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 3px;
+  user-select: none; /* Prevent text selection */
+}
+
+.button-active {
+  color: black;
+}
+
+.network-container {
+  position: fixed; /* Position the div relative to the viewport */
+  top: 0; /* Position from the top of the viewport */
+  left: 0; /* Position from the left of the viewport */
+  width: 100%; /* Make the width of the div 100% of the viewport width */
+  height: 100%; /* Make the height of the div 100% of the viewport height */
+  margin: 0; /* Remove any margin */
+  padding: 0; /* Remove any padding */
+}
+
+.toolbar {
+  position: fixed; /* Position the toolbar */
+  bottom: 0; /* Position from the bottom of the viewport */
+  left: 50%; /* Move the toolbar to the middle horizontally */
+  transform: translateX(-50%); /* Adjust the position to the middle */
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  padding: 0; /* Add padding for spacing */
+  z-index: 9999; /* Ensure the toolbar is above other content */
+}

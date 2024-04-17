@@ -1,12 +1,9 @@
 import React from 'react';
 
-const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNodeCallback, transitionStartNode}) => {
+const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNode}) => {
   const toggle = () => {
     if (currentMode === mode) {
       currentModeCallback("DEFAULT");
-      if (transitionStartNodeCallback) {
-        transitionStartNodeCallback(null);
-      }
     }
     else {
       currentModeCallback(mode); 
@@ -30,9 +27,9 @@ const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNode
     }
   }
   return (
-    <button onClick={() => toggle()}style={{color: currentMode === mode ? 'orange' : 'black', marginBottom: '10px'}}>
+    <label className={`button ${currentMode === mode ? 'button-active' : ''}`} onClick={() => toggle()}>
       {buttonText()}
-    </button>
+    </label>
   );
 };
 

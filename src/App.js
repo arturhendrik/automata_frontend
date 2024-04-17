@@ -10,6 +10,7 @@ function App() {
   const [isContextMenuVisible, setContextMenuVisible] = useState(false);
   const [data, setData] = useState({ nodes: [], edges: [] });
   const [indexOfNodeOnContext, setIndexOfNodeOnContext] = useState(null);
+  const [uploadTimestamp, setUploadTimestamp] = useState(null);
 
   useEffect(() => {
     // Set transitionStartNode to null when currentMode changes
@@ -33,9 +34,11 @@ function App() {
   function indexOfNodeOnContextCallback(index) {
     setIndexOfNodeOnContext(index);
   };
+  function uploadTimestampCallback(timestamp) {
+    setUploadTimestamp(timestamp);
+  };
   return (
     <div className="App">
-      <h1 style={{width: '90%', margin: 'auto'}}>Automata simulator</h1>
       <GraphComponent 
         currentMode={currentMode} 
         transitionStartNode={transitionStartNode} 
@@ -48,8 +51,9 @@ function App() {
         dataCallback={dataCallback}
         indexOfNodeOnContext={indexOfNodeOnContext}
         indexOfNodeOnContextCallback={indexOfNodeOnContextCallback}
+        uploadTimestamp={uploadTimestamp}
         />
-      <ToolBar currentModeCallback={currentModeCallback} currentMode={currentMode} transitionStartNodeCallback={transitionStartNodeCallback} transitionStartNode={transitionStartNode} data={data}></ToolBar>
+      <ToolBar currentModeCallback={currentModeCallback} currentMode={currentMode} transitionStartNode={transitionStartNode} data={data} dataCallback={dataCallback} uploadTimestampCallback={uploadTimestampCallback}></ToolBar>
     </div>
   );
 }

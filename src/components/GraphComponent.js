@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Network } from 'vis-network';
 import CustomContextMenu from '../components/CustomContextMenu';
-import { customFinalState, customInitialFinalState, customInitialState } from '../utils/customStates';
+import { customFinalState, customInitialFinalState, customInitialState, customNormalState } from '../utils/customStates';
 
 class GraphComponent extends Component {
 
@@ -19,14 +19,25 @@ class GraphComponent extends Component {
       dataCallback: props.dataCallback,
       indexOfNodeOnContext: props.indexOfNodeOnContext,
       indexOfNodeOnContextCallback: props.indexOfNodeOnContextCallback,
-      selectedValue: undefined
+      selectedValue: undefined,
+      uploadTimestamp: props.uploadTimestamp
     };
   }
 
   componentDidMount() {
+    this.initGraph(this.props.data);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.uploadTimestamp !== prevProps.uploadTimestamp) {
+      this.initGraph(this.props.data);
+    }
+  }
+
+  initGraph(data) {
     // Create a new network instance
     const container = document.getElementById('network');
-    const data = this.props.data;
+    //const data = this.props.data;
     const options = {
       nodes: {
         borderWidth: 1,
@@ -58,12 +69,12 @@ class GraphComponent extends Component {
         },
         font: {
           align: "top",
-          face: "Libre Baskerville"
+          face: "sans-serif"
         },
-        width: 2,
+        width: 1,
         smooth: {
-          type: 'curvedCCW',
-          roundness: 0.2 // adjust the roundness of the curve (0 to 1)
+          type: 'curvedCW',
+          roundness: 0.1 // adjust the roundness of the curve (0 to 1)
         }
       },
       groups: {
@@ -78,6 +89,10 @@ class GraphComponent extends Component {
         Initial_Final: { 
           shape: "custom",
           ctxRenderer: customInitialFinalState
+        },
+        Normal: {
+          shape: "custom",
+          ctxRenderer: customNormalState
         }
       },
       interaction: {
@@ -127,7 +142,7 @@ class GraphComponent extends Component {
             data.nodes[indexChangeToNormal].group = "Final";
           }
           else {
-            data.nodes[indexChangeToNormal].group = undefined;
+            data.nodes[indexChangeToNormal].group = "Normal";
           }
         }
       }
@@ -142,8 +157,8 @@ class GraphComponent extends Component {
       if (params.nodes.length === 0) {
         if (this.props.currentMode === "NEW_STATE") {
           const position = params.pointer.canvas;
-          const newNodeId = data.nodes.length > 0 ? data.nodes[data.nodes.length - 1].id + 1 : 1;
-          const newNode = { id: newNodeId, label: `Q${newNodeId}`, x: position.x, y: position.y };
+          const newNodeId = data.nodes.length > 0 ? data.nodes[data.nodes.length - 1].id + 1 : 0;
+          const newNode = { id: newNodeId, group: "Normal", label: `q${newNodeId}`, x: position.x, y: position.y };
           data.nodes.push(newNode);
           this.updateGraph(data);
         }
@@ -167,7 +182,7 @@ class GraphComponent extends Component {
           this.updateGraph(data);
         }
         if (this.props.currentMode === "NEW_TRANSITION") {
-          if (this.props.transitionStartNode) {
+          if (this.props.transitionStartNode !== null && this.props.transitionStartNode !== undefined) {
             let labelInput = prompt("Enter the symbol for the transition:");
             if (labelInput === '') {
               labelInput = 'λ';
@@ -202,7 +217,7 @@ class GraphComponent extends Component {
     network.on("oncontext", (params) => {
       const node = network.getNodeAt(params.pointer.DOM);
       params.event.preventDefault();
-      if (node) {
+      if (node !== undefined && node !== null) {
         this.props.menuPositionCallback(params.pointer.DOM);
         this.props.contextMenuVisibleCallback(true);
         const indexToChange = data.nodes.findIndex(item => item.id === node);
@@ -219,7 +234,7 @@ class GraphComponent extends Component {
 
   render() {
     return <div>
-      <div id="network" style={{ width: '90%', height: '450px', border: '2px solid black', margin: 'auto' }} />
+      <div id="network" className='network-container' />
       {this.props.isContextMenuVisible && (
         <CustomContextMenu
           xPos={this.props.menuPosition.x}

@@ -5,7 +5,7 @@ const CustomContextMenu = ({ xPos, yPos, onClose, optionSelectedCallback, select
   const handleOptionClick = (option) => {
     // Implement your logic based on the selected option
     if (selectedOption === option) {
-      optionSelectedCallback(undefined);
+      optionSelectedCallback("Normal");
     }
     else if (selectedOption === "Initial_Final") {
       if (option === "Initial") {
@@ -29,8 +29,8 @@ const CustomContextMenu = ({ xPos, yPos, onClose, optionSelectedCallback, select
     <div
       style={{
         position: 'fixed',
-        top: yPos + 50,
-        left: xPos + 50,
+        top: yPos,
+        left: xPos,
         backgroundColor: 'white',
         border: '1px solid #ccc',
         padding: '5px',
