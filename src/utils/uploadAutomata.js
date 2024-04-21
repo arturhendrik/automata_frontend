@@ -31,9 +31,35 @@ function handleUpload(file, dataCallback, uploadTimestampCallback) {
     const transitions = Array.from(xmlDoc.querySelectorAll('transition')).map(transition => ({
       from: parseInt(transition.querySelector('from').textContent),
       to: parseInt(transition.querySelector('to').textContent),
-      label: transition.querySelector('read').textContent
+      label: transition.querySelector('read').textContent || 'λ'
     }));
 
+    let i = 0;
+    while (i < transitions.length) {
+      const currentTransition = transitions[i];
+
+    // Find all other transitions with the same 'from' and 'to' values
+      const sameTransitions = transitions.filter(transition =>
+        transition.from === currentTransition.from && transition.to === currentTransition.to && transition !== currentTransition
+      );
+
+    // If there are same transitions, combine their labels into currentTransition and remove them from the array
+      if (sameTransitions.length > 0) {
+        sameTransitions.forEach(sameTransition => {
+            currentTransition.label += `; ${sameTransition.label}`;
+            // Remove the combined transition from the transitions array
+            const index = transitions.indexOf(sameTransition);
+            if (index !== -1) {
+                transitions.splice(index, 1);
+            }
+        });
+        // Don't increment i, so it stays at the current index
+      } else {
+        // If no same transitions, move to the next index
+        i++;
+      }
+    }
+    
     // Construct the data object
     const data = { nodes: nodes, edges: transitions };
 

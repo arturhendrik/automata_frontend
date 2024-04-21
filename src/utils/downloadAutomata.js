@@ -31,12 +31,16 @@ function generateXml (data) {
     <!--The list of transitions.-->`;
 
     data.edges.forEach(edge => {
-      xmlString += `
+      const splitLabel = edge.label.split("; ");
+      splitLabel.forEach(label => {
+        const readElement = label === 'λ' ? `<read/>` : `<read>${label}</read>`;
+        xmlString += `
     <transition>
       <from>${edge.from}</from>
       <to>${edge.to}</to>
-      <read>${edge.label}</read>
+      ${readElement}
     </transition>`;
+      })
     });
 
     xmlString += `

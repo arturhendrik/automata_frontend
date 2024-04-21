@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import GraphComponent from './components/GraphComponent';
 import ToolBar from './components/ToolBar';
+import ErrorPopup from './components/ErrorPopup';
 
 function App() {
   const [currentMode, setCurrentMode] = useState("DEFAULT");
@@ -11,6 +12,7 @@ function App() {
   const [data, setData] = useState({ nodes: [], edges: [] });
   const [indexOfNodeOnContext, setIndexOfNodeOnContext] = useState(null);
   const [uploadTimestamp, setUploadTimestamp] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Set transitionStartNode to null when currentMode changes
@@ -37,6 +39,9 @@ function App() {
   function uploadTimestampCallback(timestamp) {
     setUploadTimestamp(timestamp);
   };
+  function errorCallback(errorMessage) {
+    setError(errorMessage);
+  };
   return (
     <div className="App">
       <GraphComponent 
@@ -53,7 +58,8 @@ function App() {
         indexOfNodeOnContextCallback={indexOfNodeOnContextCallback}
         uploadTimestamp={uploadTimestamp}
         />
-      <ToolBar currentModeCallback={currentModeCallback} currentMode={currentMode} transitionStartNode={transitionStartNode} data={data} dataCallback={dataCallback} uploadTimestampCallback={uploadTimestampCallback}></ToolBar>
+      <ToolBar currentModeCallback={currentModeCallback} currentMode={currentMode} transitionStartNode={transitionStartNode} data={data} dataCallback={dataCallback} uploadTimestampCallback={uploadTimestampCallback} errorCallback={errorCallback}></ToolBar>
+      {error && <ErrorPopup errorMessage={error} errorCallback={errorCallback} />}
     </div>
   );
 }

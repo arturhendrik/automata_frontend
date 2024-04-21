@@ -183,14 +183,26 @@ class GraphComponent extends Component {
         }
         if (this.props.currentMode === "NEW_TRANSITION") {
           if (this.props.transitionStartNode !== null && this.props.transitionStartNode !== undefined) {
-            let labelInput = prompt("Enter the symbol for the transition:");
+            let labelInput;
+
+            do {
+              labelInput = prompt("Enter a single letter for the transition:");
+            } while (labelInput && (labelInput.length !== 1 || !/^[a-zA-Z]+$/.test(labelInput)));
+
             if (labelInput === '') {
               labelInput = 'λ';
             }
             if (labelInput !== null) {
               const newTransition = { from: this.props.transitionStartNode, to: params.nodes[0], label: labelInput };
-              let exists = data.edges.some(edge => edge.from === newTransition.from && edge.to === newTransition.to && edge.label === newTransition.label);
-              if (!exists) {
+              let existsLabel = data.edges.some(edge => edge.from === newTransition.from && edge.to === newTransition.to && edge.label.includes(newTransition.label));
+              const existingTransitionIndex = data.edges.findIndex(edge => edge.from === newTransition.from && edge.to === newTransition.to);
+            
+              if (existingTransitionIndex !== -1) {
+                if (!existsLabel) {
+                  data.edges[existingTransitionIndex].label += `; ${labelInput}`;
+                  this.updateGraph(data);
+                }
+              } else {
                 data.edges.push(newTransition);
                 this.updateGraph(data);
               }

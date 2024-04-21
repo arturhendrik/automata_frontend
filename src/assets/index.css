@@ -52,3 +52,29 @@ code {
   padding: 0; /* Add padding for spacing */
   z-index: 9999; /* Ensure the toolbar is above other content */
 }
+
+.error-popup {
+  position: fixed;
+  top: 20px; /* Adjust this value as needed */
+  right: 20px; /* Adjust this value as needed */
+  background-color: #ec584d;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1.5px solid black;
+}
+
+.error-popup-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.close-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  font-size: 20px;
+}
