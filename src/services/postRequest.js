@@ -1,8 +1,8 @@
 import backendEndpoint from "../config";
 
-const nfaToDfaService = async (data) => {
+const postRequest = async (data, requestEndPoint) => {
     try {
-        const response = await fetch(`${backendEndpoint}/nfa-to-dfa`, {
+        const response = await fetch(`${backendEndpoint}/${requestEndPoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -22,4 +22,4 @@ const nfaToDfaService = async (data) => {
     }
 };
 
-export default nfaToDfaService;
+export default postRequest;

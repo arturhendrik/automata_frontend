@@ -59,7 +59,8 @@ code {
   right: 20px; /* Adjust this value as needed */
   background-color: #ec584d;
   color: white;
-  padding: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 1.5px solid black;

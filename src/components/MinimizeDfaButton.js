@@ -3,7 +3,7 @@ import postRequest from '../services/postRequest';
 import sortNodesByGroup from '../utils/sortNodes';
 import checkAutomata from '../utils/checkAutomata';
 
-const NfaToDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback, uploadTimestampCallback }) => {
+const MinimizeDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback, uploadTimestampCallback }) => {
 
     const handleConversion = async (data) => {
         const {hasInitialNode, hasFinalNode, hasTransitions, isNFA} = checkAutomata(data);
@@ -16,14 +16,15 @@ const NfaToDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback
         else if (!hasTransitions) {
             errorCallback("The automaton has non-final states without outgoing transitions");
         }
-        else if (!isNFA) {
-            errorCallback("This is not a NFA");
+        else if (isNFA) {
+            errorCallback("This is not a DFA");
         }
         else {
             try {
                 currentModeCallback(null);
                 const sortedNodes = sortNodesByGroup(data);
-                const newData = await postRequest(sortedNodes, "nfa-to-dfa");
+                console.log(sortedNodes);
+                const newData = await postRequest(sortedNodes, "minimize-dfa");
                 dataCallback(newData);
                 const timestamp = Date.now();
                 uploadTimestampCallback(timestamp);
@@ -36,9 +37,9 @@ const NfaToDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback
 
     return (
         <label className='button' onClick={async () => await handleConversion(data)}>
-            NFA -{'>'} DFA
+            Minimeeri DFA
         </label>
     );
 };
 
-export default NfaToDfaButton;
+export default MinimizeDfaButton;
