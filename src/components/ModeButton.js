@@ -1,12 +1,36 @@
 import React from 'react';
+import checkAutomata from '../utils/checkAutomata';
 
-const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNode}) => {
+const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNode, errorCallback, data, runStringCallback}) => {
   const toggle = () => {
     if (currentMode === mode) {
-      currentModeCallback("DEFAULT");
+      currentModeCallback(null);
     }
     else {
-      currentModeCallback(mode); 
+      if (mode === "RUN") {
+        const { hasInitialNode } = checkAutomata(data);
+        if (!hasInitialNode) {
+            errorCallback("The automaton needs an initial state");
+            currentModeCallback(null);
+        }
+        else {
+          let input;
+
+            do {
+              input = prompt("Enter a word to simulate:");
+            } while (input && (!/^[a-zA-Z]+$/.test(input)));
+          runStringCallback(input);
+          if (input === null) {
+            currentModeCallback(null);
+          }
+          else {
+            currentModeCallback(mode);
+          }
+        }
+      }
+      else {
+        currentModeCallback(mode); 
+      }
     }
   };
   const buttonText = () => {
@@ -24,6 +48,9 @@ const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNode
     }
     if (mode === "DELETE") {
       return 'Kustuta';
+    }
+    if (mode === "RUN") {
+      return "Jooksuta";
     }
   }
   return (

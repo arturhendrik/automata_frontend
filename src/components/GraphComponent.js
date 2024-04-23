@@ -56,7 +56,7 @@ class GraphComponent extends Component {
           },
           highlight: {
             border: 'black'
-          },          
+          },
         }
       },
       edges: {
@@ -78,7 +78,7 @@ class GraphComponent extends Component {
         }
       },
       groups: {
-        Initial: { 
+        Initial: {
           shape: 'custom',
           ctxRenderer: customInitialState
         },
@@ -86,7 +86,7 @@ class GraphComponent extends Component {
           shape: "custom",
           ctxRenderer: customFinalState
         },
-        Initial_Final: { 
+        Initial_Final: {
           shape: "custom",
           ctxRenderer: customInitialFinalState
         },
@@ -95,14 +95,11 @@ class GraphComponent extends Component {
           ctxRenderer: customNormalState
         }
       },
-      interaction: {
-        hover: true
-      },
       manipulation: {
-        enabled: false // Disable node manipulation
+        enabled: false
       },
       physics: {
-        enabled: false // Disable physics simulation
+        enabled: false
       }
     };
 
@@ -121,7 +118,7 @@ class GraphComponent extends Component {
       });
       const coordinatesToDOM = data.nodes.map(node => {
         const { x, y } = network.canvasToDOM({ x: node.x, y: node.y });
-        return { ...node, x, y };
+        return { ...node, x: x, y: y };
       });
       const updatedData = {
         nodes: coordinatesToDOM,
@@ -157,7 +154,11 @@ class GraphComponent extends Component {
       if (params.nodes.length === 0) {
         if (this.props.currentMode === "NEW_STATE") {
           const position = params.pointer.canvas;
-          const newNodeId = data.nodes.length > 0 ? data.nodes[data.nodes.length - 1].id + 1 : 0;
+          const existingNodeIds = data.nodes.map(node => node.id);
+          let newNodeId = 0;
+          while (existingNodeIds.includes(newNodeId)) {
+            newNodeId++;
+          }
           const newNode = { id: newNodeId, group: "Normal", label: `q${newNodeId}`, x: position.x, y: position.y };
           data.nodes.push(newNode);
           this.updateGraph(data);
@@ -196,7 +197,7 @@ class GraphComponent extends Component {
               const newTransition = { from: this.props.transitionStartNode, to: params.nodes[0], label: labelInput };
               let existsLabel = data.edges.some(edge => edge.from === newTransition.from && edge.to === newTransition.to && edge.label.includes(newTransition.label));
               const existingTransitionIndex = data.edges.findIndex(edge => edge.from === newTransition.from && edge.to === newTransition.to);
-            
+
               if (existingTransitionIndex !== -1) {
                 if (!existsLabel) {
                   data.edges[existingTransitionIndex].label += `; ${labelInput}`;

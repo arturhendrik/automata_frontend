@@ -1,7 +1,6 @@
 const checkAutomata = (data) => {
     let hasInitialNode = false;
     let hasFinalNode = false;
-    let hasTransitions = true;
     let isNFA = false;
     data.nodes.forEach(node => {
         if (node.group === "Initial") {
@@ -14,13 +13,10 @@ const checkAutomata = (data) => {
             hasFinalNode = true;
             hasInitialNode = true;
         }
-        if (node.group !== "Final" && node.group !== "Initial_Final") {
-            const outgoingEdges = data.edges.filter(edge => edge.from === node.id);
-            if (outgoingEdges.length === 0) {
-                hasTransitions = false;
-            }
-        }
     });
+    if (data.nodes.length < 2) {
+        hasFinalNode = true;
+    }
     data.edges.forEach(edge => {
         if (edge.label.includes("λ")) {
             isNFA = true;
@@ -40,7 +36,7 @@ const checkAutomata = (data) => {
             isNFA = true;
         }
     });
-    return {hasInitialNode, hasFinalNode, hasTransitions, isNFA};
+    return {hasInitialNode, hasFinalNode, isNFA};
 };
 
 export default checkAutomata;
