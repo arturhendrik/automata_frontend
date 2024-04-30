@@ -1,5 +1,5 @@
 import React from 'react';
-import checkAutomata from '../utils/checkAutomata';
+import checkAutomata from 'utils/checkAutomata';
 
 const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNode, errorCallback, data, runStringCallback}) => {
   const toggle = () => {

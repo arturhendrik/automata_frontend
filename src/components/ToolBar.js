@@ -1,9 +1,9 @@
 import React from 'react';
-import ModeButton from './ModeButton';
-import SaveButton from './SaveButton';
-import UploadButton from './UploadButton';
-import NfaToDfaButton from './NfaToDfaButton';
-import MinimizeDfaButton from './MinimizeDfaButton';
+import ModeButton from 'components/ModeButton';
+import SaveButton from 'components/SaveButton';
+import UploadButton from 'components/UploadButton';
+import NfaToDfaButton from 'components/NfaToDfaButton';
+import MinimizeDfaButton from 'components/MinimizeDfaButton';
 
 const ToolBar = ({currentMode, currentModeCallback, transitionStartNode, data, dataCallback, uploadTimestampCallback, errorCallback, runStringCallback}) => {
     return(

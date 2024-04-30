@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import { handleUpload } from '../utils/uploadAutomata';
+import { handleUpload } from 'utils/uploadAutomata';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 

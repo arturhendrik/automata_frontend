@@ -1,5 +1,5 @@
 import React from "react";
-import AutomataRunGraphComponent from "./AutomataRunGraphComponent";
+import AutomataRunGraphComponent from "components/AutomataRunGraphComponent";
 
 const AutomataRunComponent = ({ data, currentModeCallback, runString, runAccept, runSteps, readSteps, runIndex}) => {
 
@@ -9,9 +9,8 @@ const AutomataRunComponent = ({ data, currentModeCallback, runString, runAccept,
             <span className="close-btn" onClick={() => currentModeCallback(null)}>&times;</span>
             <div className="run-info">
                 <div>Input: {"'"}{runString}{"'"}</div>
-                {runAccept === true ? <div>Võtab vastu</div> : <div>Ei võta</div>}
-                <div>Current states: {runSteps.at(runIndex)}</div>
                 <div>Input processed: {"'"}{readSteps.at(runIndex)}{"'"}</div>
+                {runIndex === runSteps.length - 1 && (runAccept === true ? <div>Võtab vastu</div> : <div>Ei võta</div>)}
             </div>
         </div>
     );

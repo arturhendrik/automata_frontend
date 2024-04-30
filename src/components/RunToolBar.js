@@ -1,7 +1,7 @@
 import { faBackwardFast, faBackwardStep, faForwardFast, faForwardStep } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { stepBack, stepForward, stepToEnd, stepToStart } from '../utils/automataRun';
+import { stepBack, stepForward, stepToEnd, stepToStart } from 'utils/automataRun';
 
 const RunToolBar = ({runIndex, runIndexCallback, runDataCallback, runSteps, runData}) => {
     return (

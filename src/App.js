@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import GraphComponent from './components/GraphComponent';
-import ToolBar from './components/ToolBar';
-import ErrorPopup from './components/ErrorPopup';
-import AutomataRunComponent from './components/AutomataRunComponent';
-import RunToolBar from './components/RunToolBar';
-import { getRunSteps } from './utils/automataRun';
+import GraphComponent from 'components/GraphComponent';
+import ToolBar from 'components/ToolBar';
+import ErrorPopup from 'components/ErrorPopup';
+import AutomataRunComponent from 'components/AutomataRunComponent';
+import RunToolBar from 'components/RunToolBar';
+import { getRunSteps } from 'utils/automataRun';
 
 function App() {
   const [currentMode, setCurrentMode] = useState(null);

@@ -1,9 +1,7 @@
 import React from 'react';
 
 const CustomContextMenu = ({ xPos, yPos, onClose, optionSelectedCallback, selectedOption }) => {
-  // Define your custom context menu options and their actions
   const handleOptionClick = (option) => {
-    // Implement your logic based on the selected option
     if (selectedOption === option) {
       optionSelectedCallback("Normal");
     }
@@ -21,7 +19,6 @@ const CustomContextMenu = ({ xPos, yPos, onClose, optionSelectedCallback, select
     else {
       optionSelectedCallback(option);
     }
-    // Close the context menu
     onClose();
   };
 

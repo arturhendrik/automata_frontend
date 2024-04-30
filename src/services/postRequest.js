@@ -1,4 +1,4 @@
-import backendEndpoint from "../config";
+import backendEndpoint from "config";
 
 const postRequest = async (data, requestEndPoint) => {
     try {

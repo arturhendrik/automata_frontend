@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Network } from 'vis-network';
-import { customFinalState, customInitialFinalState, customInitialState, customNormalState } from '../utils/customStates';
+import { customFinalState, customInitialFinalState, customInitialState, customNormalState } from 'utils/customStates';
 
 class AutomataRunGraphComponent extends Component {
 

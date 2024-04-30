@@ -1,7 +1,7 @@
 import React from 'react';
-import postRequest from '../services/postRequest';
-import sortNodesByGroup from '../utils/sortNodes';
-import checkAutomata from '../utils/checkAutomata';
+import postRequest from 'services/postRequest';
+import sortNodesByGroup from 'utils/sortNodes';
+import checkAutomata from 'utils/checkAutomata';
 
 const MinimizeDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback, uploadTimestampCallback }) => {
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Network } from 'vis-network';
-import CustomContextMenu from '../components/CustomContextMenu';
-import { customFinalState, customInitialFinalState, customInitialState, customNormalState } from '../utils/customStates';
+import CustomContextMenu from 'components/CustomContextMenu';
+import { customFinalState, customInitialFinalState, customInitialState, customNormalState } from 'utils/customStates';
 
 class GraphComponent extends Component {
 
