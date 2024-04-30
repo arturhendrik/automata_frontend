@@ -55,19 +55,21 @@ function generateXml(data) {
 function handleSave(data, currentModeCallback) {
   currentModeCallback(null);
   let input = prompt(i18next.t("file_name"));
-  while (!input.trim()) {
+  while (input !== null && !input.trim()) {
     input = prompt(i18next.t("file_name"));
   }
-  const xmlString = generateXml(data);
-  const blob = new Blob([xmlString], { type: "text/xml" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${input}.jff`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  if (input) {
+    const xmlString = generateXml(data);
+    const blob = new Blob([xmlString], { type: "text/xml" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${input}.jff`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 };
 
 export { generateXml, handleSave }
