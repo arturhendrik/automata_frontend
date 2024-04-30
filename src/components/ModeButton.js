@@ -2,7 +2,7 @@ import React from "react";
 import checkAutomata from "utils/checkAutomata";
 import { useTranslation } from "react-i18next";
 
-const ModeButton = ({ currentMode, currentModeCallback, mode, transitionStartNode, errorCallback, data, runStringCallback }) => {
+const ModeButton = ({ currentMode, currentModeCallback, mode, errorCallback, data, runStringCallback }) => {
 
   const { t } = useTranslation();
 
@@ -37,20 +37,10 @@ const ModeButton = ({ currentMode, currentModeCallback, mode, transitionStartNod
       }
     }
   };
-  const buttonText = () => {
-    if (mode === "NEW_TRANSITION" && currentMode === "NEW_TRANSITION") {
-      if (transitionStartNode === null) {
-        return "new_transition_start";
-      }
-      return "new_transition_end";
-    }
-    else {
-      return mode;
-    }
-  }
+  
   return (
     <label className={`button ${currentMode === mode ? "button-active" : ""}`} onClick={() => toggle()}>
-      {t(buttonText())}
+      {t(mode)}
     </label>
   );
 };

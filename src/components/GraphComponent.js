@@ -10,8 +10,6 @@ class GraphComponent extends Component {
     super(props);
     this.state = {
       currentMode: props.currentMode,
-      transitionStartNode: props.transitionStartNode,
-      transitionStartNodeCallback: props.transitionStartNodeCallback,
       menuPositionCallback: props.menuPositionCallback,
       contextMenuVisibleCallback: props.contextMenuVisibleCallback,
       menuPosition: props.menuPosition,
@@ -23,6 +21,7 @@ class GraphComponent extends Component {
       selectedValue: undefined,
       uploadTimestamp: props.uploadTimestamp
     };
+    this.data = null;
   }
 
   componentDidMount() {
@@ -33,9 +32,16 @@ class GraphComponent extends Component {
     if (this.props.uploadTimestamp !== prevProps.uploadTimestamp) {
       this.initGraph(this.props.data);
     }
+    else if (this.props.currentMode === "NEW_TRANSITION") {
+      this.enterAddEdgeMode();
+    }
+    else {
+      this.leaveAddEdgeMode();
+    }
   }
 
   initGraph(data) {
+    this.data = data;
     const container = document.getElementById("network");
     const options = {
       nodes: {
@@ -95,12 +101,46 @@ class GraphComponent extends Component {
         }
       },
       manipulation: {
-        enabled: false
+        enabled: false,
+        addEdge: (data, callback) => {
+          let labelInput;
+          do {
+            labelInput = prompt(i18next.t("enter_letter"));
+          } while (labelInput && (labelInput.length !== 1 || !/^[a-zA-Z]+$/.test(labelInput)));
+          if (labelInput === "") {
+            labelInput = "λ";
+          }
+          if (labelInput !== null) {
+            const newTransition = { from: data.from, to: data.to, label: labelInput };
+            let existsLabel = this.data.edges.some(edge => edge.from === newTransition.from && edge.to === newTransition.to && edge.label.includes(newTransition.label));
+            const existingTransitionIndex = this.data.edges.findIndex(edge => edge.from === newTransition.from && edge.to === newTransition.to);
+
+            if (existingTransitionIndex !== -1) {
+              if (!existsLabel) {
+                this.data.edges[existingTransitionIndex].label += `; ${labelInput}`;
+                this.updateGraph(this.data);
+              }
+            }
+            else {
+              this.data.edges.push(newTransition);
+              this.updateGraph(this.data);
+            }
+          }
+          network.addEdgeMode();
+        }
       },
       physics: {
         enabled: false
       }
     };
+
+    this.enterAddEdgeMode = () => {
+      network.addEdgeMode();
+    }
+
+    this.leaveAddEdgeMode = () => {
+      network.disableEditMode();
+    }
 
     this.updateGraph = (data) => {
       const previousScale = network.getScale();
@@ -178,38 +218,6 @@ class GraphComponent extends Component {
             }
           }
           this.updateGraph(data);
-        }
-        if (this.props.currentMode === "NEW_TRANSITION") {
-          if (this.props.transitionStartNode !== null && this.props.transitionStartNode !== undefined) {
-            let labelInput;
-
-            do {
-              labelInput = prompt(i18next.t("enter_letter"));
-            } while (labelInput && (labelInput.length !== 1 || !/^[a-zA-Z]+$/.test(labelInput)));
-
-            if (labelInput === "") {
-              labelInput = "λ";
-            }
-            if (labelInput !== null) {
-              const newTransition = { from: this.props.transitionStartNode, to: params.nodes[0], label: labelInput };
-              let existsLabel = data.edges.some(edge => edge.from === newTransition.from && edge.to === newTransition.to && edge.label.includes(newTransition.label));
-              const existingTransitionIndex = data.edges.findIndex(edge => edge.from === newTransition.from && edge.to === newTransition.to);
-
-              if (existingTransitionIndex !== -1) {
-                if (!existsLabel) {
-                  data.edges[existingTransitionIndex].label += `; ${labelInput}`;
-                  this.updateGraph(data);
-                }
-              } else {
-                data.edges.push(newTransition);
-                this.updateGraph(data);
-              }
-            }
-            this.props.transitionStartNodeCallback(null);
-          }
-          else {
-            this.props.transitionStartNodeCallback(params.nodes[0]);
-          }
         }
       }
     });

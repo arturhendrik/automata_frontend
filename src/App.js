@@ -11,7 +11,6 @@ import TestButton from "components/TestButton";
 
 function App() {
   const [currentMode, setCurrentMode] = useState(null);
-  const [transitionStartNode, setTransitionStartNode] = useState(null);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const [isContextMenuVisible, setContextMenuVisible] = useState(false);
   const [data, setData] = useState({ nodes: [], edges: [] });
@@ -27,7 +26,6 @@ function App() {
   const [selectedExercise, setSelectedExercise] = useState("1");
 
   useEffect(() => {
-    setTransitionStartNode(null);
     setContextMenuVisible(false);
     setIndexOfNodeOnContext(null);
     setError(null);
@@ -83,9 +81,6 @@ function App() {
   function currentModeCallback(mode) {
     setCurrentMode(mode);
   };
-  function transitionStartNodeCallback(node) {
-    setTransitionStartNode(node);
-  };
   function menuPositionCallback(coords) {
     setMenuPosition(coords);
   };
@@ -120,8 +115,6 @@ function App() {
     <div className="App">
       <GraphComponent
         currentMode={currentMode}
-        transitionStartNode={transitionStartNode}
-        transitionStartNodeCallback={transitionStartNodeCallback}
         menuPositionCallback={menuPositionCallback}
         contextMenuVisibleCallback={contextMenuVisibleCallback}
         isContextMenuVisible={isContextMenuVisible}
@@ -132,7 +125,7 @@ function App() {
         indexOfNodeOnContextCallback={indexOfNodeOnContextCallback}
         uploadTimestamp={uploadTimestamp}
       />
-      {currentMode === "RUN" ? <RunToolBar runIndex={runIndex} runIndexCallback={runIndexCallback} runDataCallback={runDataCallback} runSteps={runSteps} runData={runData}></RunToolBar> : <ToolBar currentModeCallback={currentModeCallback} currentMode={currentMode} transitionStartNode={transitionStartNode} data={data} dataCallback={dataCallback} uploadTimestampCallback={uploadTimestampCallback} errorCallback={errorCallback} runStringCallback={runStringCallback} selectedExercise={selectedExercise}></ToolBar>}
+      {currentMode === "RUN" ? <RunToolBar runIndex={runIndex} runIndexCallback={runIndexCallback} runDataCallback={runDataCallback} runSteps={runSteps} runData={runData}></RunToolBar> : <ToolBar currentModeCallback={currentModeCallback} currentMode={currentMode} data={data} dataCallback={dataCallback} uploadTimestampCallback={uploadTimestampCallback} errorCallback={errorCallback} runStringCallback={runStringCallback} selectedExercise={selectedExercise}></ToolBar>}
       {error && <ErrorPopup errorMessage={error} errorCallback={errorCallback} />}
       {currentMode === "RUN" && <AutomataRunComponent data={runData} currentModeCallback={currentModeCallback} runString={runString} runAccept={runAccept} runSteps={runSteps} readSteps={readSteps} runIndex={runIndex}/>}
       <LanguaageSelector></LanguaageSelector>
