@@ -19,7 +19,11 @@
             "simulate_word": "Enter a word to simulate",
             "error_not_nfa": "This is not a NFA",
             "enter_letter": "Enter a single letter for the transition",
-            "file_name": "Enter file name"
+            "file_name": "Enter file name",
+            "exercise": "Exercise",
+            "test": "Test",
+            "should_accept": "The automaton should accept: ",
+            "should_not_accept": "The automaton should not accept: "
         }
     },
     "et": {
@@ -42,7 +46,11 @@
             "simulate_word": "Sisesta sisendsõna",
             "error_not_nfa": "See ei ole NFA",
             "enter_letter": "Sisesta täht üleminekuks",
-            "file_name": "Sisesta faili nimi"
+            "file_name": "Sisesta faili nimi",
+            "exercise": "Ülesanne",
+            "test": "Test",
+            "should_accept": "Automaat peaks aktsepteerima: ",
+            "should_not_accept": "Automaat ei tohiks aktsepteerida: "
         }
     }
 }

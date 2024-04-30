@@ -1,14 +1,21 @@
 import backendEndpoint from "config";
 
-const postRequest = async (data, requestEndPoint) => {
+const postRequest = async (data, requestEndPoint, exerciseNumber = null) => {
     try {
-        const response = await fetch(`${backendEndpoint}/${requestEndPoint}`, {
+        let url = `${backendEndpoint}/${requestEndPoint}`;
+        if (exerciseNumber !== null) {
+            url += `/${exerciseNumber}`;
+        }
+
+        const requestOptions = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        });
+        };
+
+        const response = await fetch(url, requestOptions);
 
         if (!response.ok) {
             throw new Error("Network response was not ok");

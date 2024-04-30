@@ -1,5 +1,3 @@
-import i18next from "i18n";
-
 function generateXml(data) {
   let xmlString = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <structure>
@@ -52,24 +50,18 @@ function generateXml(data) {
   return xmlString;
 };
 
-function handleSave(data, currentModeCallback) {
+function handleSave(data, currentModeCallback, selectedExercise) {
   currentModeCallback(null);
-  let input = prompt(i18next.t("file_name"));
-  while (input !== null && !input.trim()) {
-    input = prompt(i18next.t("file_name"));
-  }
-  if (input) {
-    const xmlString = generateXml(data);
-    const blob = new Blob([xmlString], { type: "text/xml" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${input}.jff`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
+  const xmlString = generateXml(data);
+  const blob = new Blob([xmlString], { type: "text/xml" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `yl${selectedExercise}.jff`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 };
 
 export { generateXml, handleSave }

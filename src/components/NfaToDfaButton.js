@@ -7,7 +7,7 @@ const NfaToDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback
 
     const handleConversion = async (data) => {
         const { hasInitialNode, isNFA } = checkAutomata(data);
-        currentModeCallback(null);
+        await currentModeCallback(null);
         if (!hasInitialNode) {
             errorCallback("error_needs_initial");
         }
@@ -15,8 +15,8 @@ const NfaToDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback
             errorCallback("error_not_nfa");
         }
         else {
-            errorCallback(null);
             try {
+                errorCallback(null);
                 const sortedNodes = sortNodesByGroup(data);
                 const newData = await postRequest(sortedNodes, "nfa-to-dfa");
                 dataCallback(newData);

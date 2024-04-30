@@ -10,7 +10,7 @@ const MinimizeDfaButton = ({ data, currentModeCallback, errorCallback, dataCallb
 
     const handleConversion = async (data) => {
         const { hasInitialNode, isNFA } = checkAutomata(data);
-        currentModeCallback(null);
+        await currentModeCallback(null);
         if (!hasInitialNode) {
             errorCallback("error_needs_initial");
         }
@@ -18,10 +18,9 @@ const MinimizeDfaButton = ({ data, currentModeCallback, errorCallback, dataCallb
             errorCallback("error_not_dfa");
         }
         else {
-            errorCallback(null);
             try {
+                errorCallback(null);
                 const sortedNodes = sortNodesByGroup(data);
-                console.log(sortedNodes);
                 const newData = await postRequest(sortedNodes, "minimize-dfa");
                 dataCallback(newData);
                 const timestamp = Date.now();

@@ -25,7 +25,6 @@ const getRunSteps = (initialNodeId, data, runString) => {
             });
         });
         read += letter
-        console.log(nextStates)
         currentStates = nextStates;
         runSteps.push(nextStates);
         readSteps.push(read);

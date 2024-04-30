@@ -8,10 +8,19 @@ const ErrorPopup = ({ errorMessage, errorCallback}) => {
   const handleClose = () => {
     errorCallback(null);
   }
+  const handleMessage = () => {
+    if (errorMessage.includes(":")) {
+      const parts = errorMessage.split(":");
+      return t(parts[0]) + parts[1]
+    }
+    else {
+      return t(errorMessage);
+    }
+  }
   return (
     <div className="error-popup">
       <div className="error-popup-content">
-        <p>{t(errorMessage)}</p>
+        <p>{handleMessage()}</p>
         <span className="close-btn" onClick={() => handleClose()}>&times;</span>
       </div>
     </div>

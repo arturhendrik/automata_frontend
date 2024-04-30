@@ -6,16 +6,16 @@ const ModeButton = ({ currentMode, currentModeCallback, mode, transitionStartNod
 
   const { t } = useTranslation();
 
-  const toggle = () => {
+  const toggle = async () => {
     if (currentMode === mode) {
       currentModeCallback(null);
     }
     else {
       if (mode === "RUN") {
         const { hasInitialNode } = checkAutomata(data);
+        await currentModeCallback(null);
         if (!hasInitialNode) {
           errorCallback("error_needs_initial");
-          currentModeCallback(null);
         }
         else {
           let input;
