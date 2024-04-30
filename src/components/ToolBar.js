@@ -14,7 +14,7 @@ const ToolBar = ({currentMode, currentModeCallback, transitionStartNode, data, d
             <ModeButton currentMode={currentMode} currentModeCallback={currentModeCallback} mode="RUN" errorCallback={errorCallback} data={data} runStringCallback={runStringCallback}></ModeButton>
             <NfaToDfaButton data={data} currentModeCallback={currentModeCallback} errorCallback={errorCallback} dataCallback={dataCallback} uploadTimestampCallback={uploadTimestampCallback}></NfaToDfaButton>
             <MinimizeDfaButton data={data} currentModeCallback={currentModeCallback} errorCallback={errorCallback} dataCallback={dataCallback} uploadTimestampCallback={uploadTimestampCallback}></MinimizeDfaButton>
-            <SaveButton data={data} fileName={"test"} currentModeCallback={currentModeCallback}></SaveButton>
+            <SaveButton data={data} currentModeCallback={currentModeCallback}></SaveButton>
             <UploadButton dataCallback={dataCallback} uploadTimestampCallback={uploadTimestampCallback} currentModeCallback={currentModeCallback}></UploadButton>
         </div>
     );

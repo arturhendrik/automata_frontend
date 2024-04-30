@@ -18,7 +18,8 @@
             "error_not_dfa": "This is not a DFA",
             "simulate_word": "Enter a word to simulate",
             "error_not_nfa": "This is not a NFA",
-            "enter_letter": "Enter a single letter for the transition"
+            "enter_letter": "Enter a single letter for the transition",
+            "file_name": "Enter file name"
         }
     },
     "et": {
@@ -40,7 +41,8 @@
             "error_not_dfa": "See ei ole DFA",
             "simulate_word": "Sisesta sisendsõna",
             "error_not_nfa": "See ei ole NFA",
-            "enter_letter": "Sisesta täht üleminekuks"
+            "enter_letter": "Sisesta täht üleminekuks",
+            "file_name": "Sisesta faili nimi"
         }
     }
 }
