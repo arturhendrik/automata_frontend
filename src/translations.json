@@ -46,7 +46,19 @@
             "exercise": "Ülesanne",
             "test": "Test",
             "should_accept": "Automaat peaks aktsepteerima: ",
-            "should_not_accept": "Automaat ei tohiks aktsepteerida: "
+            "should_not_accept": "Automaat ei tohiks aktsepteerida: ",
+            "exercise1": "Sõnad üle tähestiku {a,b}, mis sisaldavad alamsõnena \"aba\"",
+            "exercise2": "Sõnad üle tähestiku {a,b}, mis sisaldavad täpselt ühe 'a'",
+            "exercise3": "Sõnad üle tähestiku {a,b}, kus igale 'a'-le järgneb varem või hiljem vähemalt üks 'b'",
+            "exercise4": "Sõnad üle tähestiku {a,b,x}, kus iga 'b' kõrval on 'a'",
+            "exercise5": "Sõnad üle tähestiku {a,b}, kus 'a' ega 'b' ei kordu",
+            "exercise6": "Sõnad üle tähestiku {a,b}, mis ei sisalda alamsõne \"aba\"",
+            "exercise7": "Sõnad üle tähestiku {a,b}, mis sisaldavad alamsõnena \"aba\" ja kus igale 'a'-le järgneb varem või hiljem vähemalt üks 'b'",
+            "exercise8": "Sõnad üle tähestiku {a,b}, mis sisaldavad alamsõne \"bb\"",
+            "exercise9": "Sõnad üle tähestiku {a,b}, mis sobituvad regulaaravaldisega \"(a*b)*\"",
+            "exercise10": "Sõnad üle tähestiku {a,b}, milles on mõlemat tähte vähemalt üks",
+            "exercise11": "Sõnad üle tähestiku {a,b}, mis sobituvad regulaaravaldisega \"(a*b)*\" või milles on mõlemat tähte vähemalt üks",
+            "exercise12": "Sõnad üle tähestiku {a,b}, mis sisaldavad alamsõne \"bb\" ja sobituvad regulaaravaldisega \"(a*b)*\""
         }
     }
 }

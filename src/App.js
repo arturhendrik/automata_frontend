@@ -7,7 +7,7 @@ import AutomataRunComponent from "components/AutomataRunComponent";
 import RunToolBar from "components/RunToolBar";
 import { getRunSteps } from "utils/automataRun";
 import LanguaageSelector from "components/LanguageSelector";
-import TestButton from "components/TestButton";
+import ExerciseContainer from "components/ExerciseContainer";
 
 function App() {
   const [currentMode, setCurrentMode] = useState(null);
@@ -129,7 +129,7 @@ function App() {
       {error && <ErrorPopup errorMessage={error} errorCallback={errorCallback} />}
       {currentMode === "RUN" && <AutomataRunComponent data={runData} currentModeCallback={currentModeCallback} runString={runString} runAccept={runAccept} runSteps={runSteps} readSteps={readSteps} runIndex={runIndex} />}
       <LanguaageSelector></LanguaageSelector>
-      <TestButton data={data} currentModeCallback={currentModeCallback} errorCallback={errorCallback} selectedExerciseCallback={selectedExerciseCallback} selectedExercise={selectedExercise}></TestButton>
+      <ExerciseContainer data={data} currentModeCallback={currentModeCallback} errorCallback={errorCallback} selectedExerciseCallback={selectedExerciseCallback} selectedExercise={selectedExercise}></ExerciseContainer>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import sortNodesByGroup from "utils/sortNodes";
 import checkAutomata from "utils/checkAutomata";
 import { useTranslation } from "react-i18next";
 
-const TestButton = ({ data, currentModeCallback, errorCallback, selectedExerciseCallback, selectedExercise }) => {
+const ExerciseContainer = ({ data, currentModeCallback, errorCallback, selectedExerciseCallback, selectedExercise }) => {
 
     const { t } = useTranslation();
 
@@ -36,16 +36,19 @@ const TestButton = ({ data, currentModeCallback, errorCallback, selectedExercise
 
     return (
         <div className="exercise-container">
-            <select className="select-menu" id="selectOption" value={selectedExercise} onChange={handleChange}>
-                {Array.from({ length: 12 }, (_, index) => (
-                    <option key={index + 1} value={index + 1}>{t("exercise")} {index + 1}</option>
-                ))}
-            </select>
-            <label className="button" onClick={async () => await handleConversion(data, selectedExercise)}>
-                {t("test")}
-            </label>
+            <div>
+                <select className="select-menu" id="selectOption" value={selectedExercise} onChange={handleChange}>
+                    {Array.from({ length: 12 }, (_, index) => (
+                        <option key={index + 1} value={index + 1}>{t("exercise")} {index + 1}</option>
+                    ))}
+                </select>
+                <label className="button" onClick={async () => await handleConversion(data, selectedExercise)}>
+                    {t("test")}
+                </label>
+            </div>
+            <label>{t("exercise"+selectedExercise)}</label>
         </div>
     );
 };
 
-export default TestButton;
+export default ExerciseContainer;
