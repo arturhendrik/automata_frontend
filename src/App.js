@@ -8,6 +8,7 @@ import RunToolBar from "components/RunToolBar";
 import { getRunSteps } from "utils/automataRun";
 import LanguaageSelector from "components/LanguageSelector";
 import ExerciseContainer from "components/ExerciseContainer";
+import SuccessPopup from "components/SuccessPopup";
 
 function App() {
   const [currentMode, setCurrentMode] = useState(null);
@@ -17,6 +18,7 @@ function App() {
   const [indexOfNodeOnContext, setIndexOfNodeOnContext] = useState(null);
   const [uploadTimestamp, setUploadTimestamp] = useState(null);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [runData, setRunData] = useState({ nodes: [], edges: [] });
   const [runIndex, setRunIndex] = useState(0);
   const [runSteps, setRunSteps] = useState([]);
@@ -29,6 +31,7 @@ function App() {
     setContextMenuVisible(false);
     setIndexOfNodeOnContext(null);
     setError(null);
+    setSuccess(null);
     if (currentMode === "RUN") {
       const initialNodes = data.nodes.filter(node => node.group === "Initial" || node.group === "Initial_Final");
       const minX = Math.min(...data.nodes.map(node => node.x));
@@ -78,6 +81,16 @@ function App() {
     setContextMenuVisible(false);
     setIndexOfNodeOnContext(null);
   }, [data]);
+  useEffect(() => {
+    if (success) {
+      setError(null);
+    }
+  }, [success]);
+  useEffect(() => {
+    if (error) {
+      setSuccess(null);
+    }
+  }, [error]);
   function currentModeCallback(mode) {
     setCurrentMode(mode);
   };
@@ -111,6 +124,9 @@ function App() {
   function selectedExerciseCallback(exercise) {
     setSelectedExercise(exercise);
   }
+  function successCallback(success) {
+    setSuccess(success);
+  }
   return (
     <div className="App">
       <GraphComponent
@@ -127,9 +143,10 @@ function App() {
       />
       {currentMode === "RUN" ? <RunToolBar runIndex={runIndex} runIndexCallback={runIndexCallback} runDataCallback={runDataCallback} runSteps={runSteps} runData={runData}></RunToolBar> : <ToolBar currentModeCallback={currentModeCallback} currentMode={currentMode} data={data} dataCallback={dataCallback} uploadTimestampCallback={uploadTimestampCallback} errorCallback={errorCallback} runStringCallback={runStringCallback} selectedExercise={selectedExercise}></ToolBar>}
       {error && <ErrorPopup errorMessage={error} errorCallback={errorCallback} />}
+      {success && <SuccessPopup successCallback={successCallback}></SuccessPopup>}
       {currentMode === "RUN" && <AutomataRunComponent data={runData} currentModeCallback={currentModeCallback} runString={runString} runAccept={runAccept} runSteps={runSteps} readSteps={readSteps} runIndex={runIndex} />}
       <LanguaageSelector></LanguaageSelector>
-      <ExerciseContainer data={data} currentModeCallback={currentModeCallback} errorCallback={errorCallback} selectedExerciseCallback={selectedExerciseCallback} selectedExercise={selectedExercise}></ExerciseContainer>
+      <ExerciseContainer data={data} currentModeCallback={currentModeCallback} errorCallback={errorCallback} selectedExerciseCallback={selectedExerciseCallback} selectedExercise={selectedExercise} successCallback={successCallback}></ExerciseContainer>
     </div>
   );
 }

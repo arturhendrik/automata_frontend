@@ -18,8 +18,8 @@ const ErrorPopup = ({ errorMessage, errorCallback }) => {
     }
   }
   return (
-    <div className="error-popup">
-      <div className="error-popup-content">
+    <div className="popup">
+      <div className="popup-content">
         <p>{handleMessage()}</p>
         <span className="close-btn" onClick={() => handleClose()}>&times;</span>
       </div>

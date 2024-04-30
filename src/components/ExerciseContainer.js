@@ -4,7 +4,7 @@ import sortNodesByGroup from "utils/sortNodes";
 import checkAutomata from "utils/checkAutomata";
 import { useTranslation } from "react-i18next";
 
-const ExerciseContainer = ({ data, currentModeCallback, errorCallback, selectedExerciseCallback, selectedExercise }) => {
+const ExerciseContainer = ({ data, currentModeCallback, errorCallback, selectedExerciseCallback, selectedExercise, successCallback }) => {
 
     const { t } = useTranslation();
 
@@ -23,7 +23,7 @@ const ExerciseContainer = ({ data, currentModeCallback, errorCallback, selectedE
                 const sortedNodes = sortNodesByGroup(data);
                 const newData = await postRequest(sortedNodes, "test", selectedExercise);
                 if (newData.length === 0) {
-                    errorCallback(null);
+                    successCallback("success");
                 }
                 else {
                     errorCallback(newData[0])
@@ -46,7 +46,7 @@ const ExerciseContainer = ({ data, currentModeCallback, errorCallback, selectedE
                     {t("test")}
                 </label>
             </div>
-            <label>{t("exercise"+selectedExercise)}</label>
+            <label>{t("exercise" + selectedExercise)}</label>
         </div>
     );
 };

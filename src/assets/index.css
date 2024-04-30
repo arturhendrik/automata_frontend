@@ -58,7 +58,7 @@ code {
   z-index: 9999;
 }
 
-.error-popup {
+.popup {
   position: fixed;
   top: 20px;
   right: 20px;
@@ -71,7 +71,7 @@ code {
   border: 1.5px solid black;
 }
 
-.error-popup-content {
+.popup-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -140,4 +140,8 @@ code {
   border: 1px solid black;
   font-size: 12px;
   margin: 3px;
+}
+
+.success {
+  background-color: rgb(57, 194, 57);
 }

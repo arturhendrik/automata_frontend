@@ -1,6 +1,6 @@
 {
     "en": {
-      "translation": {
+        "translation": {
             "run_input": "Input",
             "run_input_processed": "Input processed",
             "run_accept": "The automata accepts the input",
@@ -21,11 +21,24 @@
             "exercise": "Exercise",
             "test": "Test",
             "should_accept": "The automaton should accept: ",
-            "should_not_accept": "The automaton should not accept: "
+            "should_not_accept": "The automaton should not accept: ",
+            "exercise1": "Words over the alphabet {a, b}, that contain the substring \"aba\"",
+            "exercise2": "Words over the alphabet {a,b}, that contain exactly one 'a'",
+            "exercise3": "Words over the alphabet {a,b}, where each 'a' is followed by at least one 'b' sooner or later",
+            "exercise4": "Words over the alphabet {a,b,x}, where each 'b' is adjacent to 'a'",
+            "exercise5": "Words over the alphabet {a,b}, where neither 'a' nor 'b' are repeated",
+            "exercise6": "Words over the alphabet {a,b}, that don't contain the substring \"aba\"",
+            "exercise7": "Words over the alphabet {a,b}, that contain the substring \"aba\" and where each 'a' is followed by at least one 'b' sooner or later",
+            "exercise8": "Words over the alphabet {a,b}, that contain the substring \"bb\"",
+            "exercise9": "Words over the alphabet {a,b}, that match the regular expression \"(a*b)*\"",
+            "exercise10": "Words over the alphabet {a,b}, in which both letters occur at least once",
+            "exercise11": "Words over the alphabet {a,b}, that match the regular expression \"(a*b)*\" or in which both letters occur at least once",
+            "exercise12": "Words over the alphabet {a,b}, that contain the substring \"bb\" and that match the regular expression \"(a*b)*\"",
+            "success": "Tests passed!"
         }
     },
     "et": {
-      "translation": {
+        "translation": {
             "run_input": "Sisendsõna",
             "run_input_processed": "Sisendsõnast töödeldud",
             "run_accept": "Automaat võtab sisendsõna vastu",
@@ -58,7 +71,8 @@
             "exercise9": "Sõnad üle tähestiku {a,b}, mis sobituvad regulaaravaldisega \"(a*b)*\"",
             "exercise10": "Sõnad üle tähestiku {a,b}, milles on mõlemat tähte vähemalt üks",
             "exercise11": "Sõnad üle tähestiku {a,b}, mis sobituvad regulaaravaldisega \"(a*b)*\" või milles on mõlemat tähte vähemalt üks",
-            "exercise12": "Sõnad üle tähestiku {a,b}, mis sisaldavad alamsõne \"bb\" ja sobituvad regulaaravaldisega \"(a*b)*\""
+            "exercise12": "Sõnad üle tähestiku {a,b}, mis sisaldavad alamsõne \"bb\" ja sobituvad regulaaravaldisega \"(a*b)*\"",
+            "success": "Testid läbitud, tubli!"
         }
     }
 }
