@@ -33,7 +33,7 @@ function generateXml (data) {
     data.edges.forEach(edge => {
       const splitLabel = edge.label.split("; ");
       splitLabel.forEach(label => {
-        const readElement = label === 'λ' ? `<read/>` : `<read>${label}</read>`;
+        const readElement = label === "λ" ? `<read/>` : `<read>${label}</read>`;
         xmlString += `
     <transition>
       <from>${edge.from}</from>
@@ -53,9 +53,9 @@ function generateXml (data) {
   function handleSave (data, fileName, currentModeCallback) {
     currentModeCallback(null);
     const xmlString = generateXml(data);
-    const blob = new Blob([xmlString], { type: 'text/xml' });
+    const blob = new Blob([xmlString], { type: "text/xml" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
     a.download = `${fileName}.jff`;
     document.body.appendChild(a);

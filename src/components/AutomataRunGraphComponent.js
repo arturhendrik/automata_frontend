@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Network } from 'vis-network';
-import { customFinalState, customInitialFinalState, customInitialState, customNormalState } from 'utils/customStates';
+import React, { Component } from "react";
+import { Network } from "vis-network";
+import { customFinalState, customInitialFinalState, customInitialState, customNormalState } from "utils/customStates";
 
 class AutomataRunGraphComponent extends Component {
 
@@ -21,7 +21,7 @@ class AutomataRunGraphComponent extends Component {
 
     initGraph(data) {
         // Create a new network instance
-        const container = document.getElementById('run-network');
+        const container = document.getElementById("run-network");
         const options = {
             nodes: {
                 borderWidth: 1,
@@ -32,8 +32,8 @@ class AutomataRunGraphComponent extends Component {
                 shape: "circle",
                 margin: 15,
                 color: {
-                    background: 'white',
-                    border: 'black'
+                    background: "white",
+                    border: "black"
                 }
             },
             edges: {
@@ -48,13 +48,13 @@ class AutomataRunGraphComponent extends Component {
                 },
                 width: 1,
                 smooth: {
-                    type: 'curvedCW',
+                    type: "curvedCW",
                     roundness: 0.1 // adjust the roundness of the curve (0 to 1)
                 }
             },
             groups: {
                 Initial: {
-                    shape: 'custom',
+                    shape: "custom",
                     ctxRenderer: customInitialState
                 },
                 Final: {
@@ -70,58 +70,58 @@ class AutomataRunGraphComponent extends Component {
                     ctxRenderer: customNormalState
                 },
                 Initial_Active: {
-                    shape: 'custom',
+                    shape: "custom",
                     color: {
-                        background: '#9c9695',
+                        background: "#9c9695",
                     },
                     ctxRenderer: customInitialState
                 },
                 Final_Active: {
                     shape: "custom",
                     color: {
-                        background: '#9c9695',
+                        background: "#9c9695",
                     },
                     ctxRenderer: customFinalState
                 },
                 Initial_Final_Active: {
                     shape: "custom",
                     color: {
-                        background: '#9c9695',
+                        background: "#9c9695",
                     },
                     ctxRenderer: customInitialFinalState
                 },
                 Normal_Active: {
                     shape: "custom",
                     color: {
-                        background: '#9c9695',
+                        background: "#9c9695",
                     },
                     ctxRenderer: customNormalState
                 },
                 Final_Accepted: {
                     shape: "custom",
                     color: {
-                        background: '#71fa28',
+                        background: "#71fa28",
                     },
                     ctxRenderer: customFinalState
                 },
                 Initial_Final_Accepted: {
                     shape: "custom",
                     color: {
-                        background: '#71fa28',
+                        background: "#71fa28",
                     },
                     ctxRenderer: customInitialFinalState
                 },
                 Normal_Notaccepted: {
                     shape: "custom",
                     color: {
-                        background: 'red',
+                        background: "red",
                     },
                     ctxRenderer: customNormalState
                 },
                 Initial_Notaccepted: {
                     shape: "custom",
                     color: {
-                        background: 'red',
+                        background: "red",
                     },
                     ctxRenderer: customInitialState
                 }
@@ -150,7 +150,7 @@ class AutomataRunGraphComponent extends Component {
 
     render() {
         return (
-            <div id="run-network" className='network-container network-container-run' />
+            <div id="run-network" className="network-container network-container-run" />
         )
     }
 }

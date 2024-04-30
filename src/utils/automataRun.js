@@ -51,7 +51,7 @@ const getRunSteps = (initialNodeId, data, runString) => {
 const traverseEpsilons = (currentState, statesToUpdate, data) => {
     data.edges.forEach(edge => {
         const edgeLabels = edge.label.split("; ");
-        if (edgeLabels.includes('λ') && edge.from === currentState && edge.from !== edge.to) {
+        if (edgeLabels.includes("λ") && edge.from === currentState && edge.from !== edge.to) {
             const nextState = edge.to;
             if (!statesToUpdate.includes(nextState)) {
                 statesToUpdate.push(nextState);

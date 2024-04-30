@@ -1,7 +1,7 @@
-import React from 'react';
-import postRequest from 'services/postRequest';
-import sortNodesByGroup from 'utils/sortNodes';
-import checkAutomata from 'utils/checkAutomata';
+import React from "react";
+import postRequest from "services/postRequest";
+import sortNodesByGroup from "utils/sortNodes";
+import checkAutomata from "utils/checkAutomata";
 
 const MinimizeDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback, uploadTimestampCallback }) => {
 
@@ -34,7 +34,7 @@ const MinimizeDfaButton = ({ data, currentModeCallback, errorCallback, dataCallb
     }
 
     return (
-        <label className='button' onClick={async () => await handleConversion(data)}>
+        <label className="button" onClick={async () => await handleConversion(data)}>
             Minimeeri DFA
         </label>
     );

@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import React from 'react';
-import GraphComponent from 'components/GraphComponent';
-import ToolBar from 'components/ToolBar';
-import ErrorPopup from 'components/ErrorPopup';
-import AutomataRunComponent from 'components/AutomataRunComponent';
-import RunToolBar from 'components/RunToolBar';
-import { getRunSteps } from 'utils/automataRun';
+import { useState, useEffect } from "react";
+import React from "react";
+import GraphComponent from "components/GraphComponent";
+import ToolBar from "components/ToolBar";
+import ErrorPopup from "components/ErrorPopup";
+import AutomataRunComponent from "components/AutomataRunComponent";
+import RunToolBar from "components/RunToolBar";
+import { getRunSteps } from "utils/automataRun";
 
 function App() {
   const [currentMode, setCurrentMode] = useState(null);
@@ -42,7 +42,7 @@ function App() {
           setRunSteps(runSteps);
           setReadSteps(readSteps);
           setRunAccept(accept);
-          if (runString === '') {
+          if (runString === "") {
             updatedNodes.forEach(element => {
               if (runSteps.at(0).includes(element.id)) {
                 if (element.group.includes("Final")) {

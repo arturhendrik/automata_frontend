@@ -7,7 +7,7 @@ function customFinalState ({ ctx, x, y, state: { selected, hover }, style, label
     ctx.arc(x, y, outerRadius, 0, 2 * Math.PI);
     ctx.fillStyle = style.color; // Fill color, same as border color
     ctx.fill();
-    ctx.strokeStyle = 'black' // Outer border color
+    ctx.strokeStyle = "black" // Outer border color
     ctx.lineWidth = 1; // Outer border width
     ctx.stroke();
     ctx.closePath();
@@ -15,16 +15,16 @@ function customFinalState ({ ctx, x, y, state: { selected, hover }, style, label
     // Draw inner circle (inner border)
     ctx.beginPath();
     ctx.arc(x, y, innerRadius, 0, 2 * Math.PI);
-    ctx.strokeStyle = 'black' // Inner border color, same as outer border color
+    ctx.strokeStyle = "black" // Inner border color, same as outer border color
     ctx.lineWidth = 1; // Inner border width
     ctx.stroke();
     ctx.closePath();
 
     // Draw label
-    ctx.font = 'normal 14px sans-serif';
-    ctx.fillStyle = 'black'; // Label color
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    ctx.font = "normal 14px sans-serif";
+    ctx.fillStyle = "black"; // Label color
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
     ctx.fillText(label, x, y);
     
     return {
@@ -43,7 +43,7 @@ function customInitialState ({ ctx, x, y, state: { selected, hover }, style, lab
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
     ctx.fillStyle = style.color; // Circle fill color
     ctx.fill();
-    ctx.strokeStyle = 'black' // Outer border color
+    ctx.strokeStyle = "black" // Outer border color
     ctx.lineWidth = 1; // Outer border width
     ctx.stroke();
     ctx.closePath();
@@ -55,16 +55,16 @@ function customInitialState ({ ctx, x, y, state: { selected, hover }, style, lab
     ctx.lineTo(x - triangleOffset - triangleSize, y + triangleSize / 2); // Bottom point of the triangle
     ctx.closePath();
     ctx.fillStyle = style.color; // Triangle fill color
-    ctx.strokeStyle = 'black' // Outer border color
+    ctx.strokeStyle = "black" // Outer border color
     ctx.lineWidth = 1; // Outer border width
     ctx.stroke();
     ctx.fill();
 
     // Draw label
     ctx.font = "normal 14px sans-serif";
-    ctx.fillStyle = 'black'; // Label color
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    ctx.fillStyle = "black"; // Label color
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
     ctx.fillText(label, x, y);
     
     return {
@@ -84,7 +84,7 @@ function customInitialFinalState ({ ctx, x, y, state: { selected, hover }, style
   ctx.arc(x, y, outerRadius, 0, 2 * Math.PI);
   ctx.fillStyle = style.color; // Fill color, same as border color
   ctx.fill();
-  ctx.strokeStyle = 'black' // Outer border color
+  ctx.strokeStyle = "black" // Outer border color
   ctx.lineWidth = 1; // Outer border width
   ctx.stroke();
   ctx.closePath();
@@ -92,7 +92,7 @@ function customInitialFinalState ({ ctx, x, y, state: { selected, hover }, style
   // Draw inner circle (inner border)
   ctx.beginPath();
   ctx.arc(x, y, innerRadius, 0, 2 * Math.PI);
-  ctx.strokeStyle = 'black' // Inner border color, same as outer border color
+  ctx.strokeStyle = "black" // Inner border color, same as outer border color
   ctx.lineWidth = 1; // Inner border width
   ctx.stroke();
   ctx.closePath();
@@ -104,16 +104,16 @@ function customInitialFinalState ({ ctx, x, y, state: { selected, hover }, style
   ctx.lineTo(x - triangleOffset - triangleSize, y + triangleSize / 2); // Bottom point of the triangle
   ctx.closePath();
   ctx.fillStyle = style.color; // Triangle fill color
-  ctx.strokeStyle = 'black' // Outer border color
+  ctx.strokeStyle = "black" // Outer border color
   ctx.lineWidth = 1; // Outer border width
   ctx.stroke();
   ctx.fill();
 
   // Draw label
-  ctx.font = 'normal 14px sans-serif';
-  ctx.fillStyle = 'black'; // Label color
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
+  ctx.font = "normal 14px sans-serif";
+  ctx.fillStyle = "black"; // Label color
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
   ctx.fillText(label, x, y);
   
   return {
@@ -129,16 +129,16 @@ function customNormalState ({ ctx, x, y, state: { selected, hover }, style, labe
   ctx.arc(x, y, radius, 0, 2 * Math.PI);
   ctx.fillStyle = style.color;
   ctx.fill();
-  ctx.strokeStyle = 'black'
+  ctx.strokeStyle = "black"
   ctx.lineWidth = 1;
   ctx.stroke();
   ctx.closePath();
 
   // Draw label
-  ctx.font = 'normal 14px sans-serif';
-  ctx.fillStyle = 'black'; // Label color
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
+  ctx.font = "normal 14px sans-serif";
+  ctx.fillStyle = "black"; // Label color
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
   ctx.fillText(label, x, y);
   
   return {

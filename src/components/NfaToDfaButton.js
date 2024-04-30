@@ -1,7 +1,7 @@
-import React from 'react';
-import postRequest from 'services/postRequest';
-import sortNodesByGroup from 'utils/sortNodes';
-import checkAutomata from 'utils/checkAutomata';
+import React from "react";
+import postRequest from "services/postRequest";
+import sortNodesByGroup from "utils/sortNodes";
+import checkAutomata from "utils/checkAutomata";
 
 const NfaToDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback, uploadTimestampCallback }) => {
 
@@ -33,8 +33,8 @@ const NfaToDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback
     }
 
     return (
-        <label className='button' onClick={async () => await handleConversion(data)}>
-            NFA -{'>'} DFA
+        <label className="button" onClick={async () => await handleConversion(data)}>
+            NFA -{">"} DFA
         </label>
     );
 };

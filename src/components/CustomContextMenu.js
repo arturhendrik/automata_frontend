@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const CustomContextMenu = ({ xPos, yPos, onClose, optionSelectedCallback, selectedOption }) => {
   const handleOptionClick = (option) => {
@@ -25,15 +25,15 @@ const CustomContextMenu = ({ xPos, yPos, onClose, optionSelectedCallback, select
   return (
     <div
       style={{
-        position: 'fixed',
+        position: "fixed",
         top: yPos,
         left: xPos,
-        backgroundColor: 'white',
-        border: '1px solid #ccc',
-        padding: '5px',
+        backgroundColor: "white",
+        border: "1px solid #ccc",
+        padding: "5px",
         zIndex: 9999,
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <label>

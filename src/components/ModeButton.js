@@ -1,5 +1,5 @@
-import React from 'react';
-import checkAutomata from 'utils/checkAutomata';
+import React from "react";
+import checkAutomata from "utils/checkAutomata";
 
 const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNode, errorCallback, data, runStringCallback}) => {
   const toggle = () => {
@@ -37,24 +37,24 @@ const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNode
     if (mode === "NEW_TRANSITION") {
       if (currentMode === "NEW_TRANSITION") {
         if (transitionStartNode === null) {
-          return 'Vali alguspunkt';
+          return "Vali alguspunkt";
         }
-        return 'Vali lõpp-punkt';
+        return "Vali lõpp-punkt";
       }
-      return 'Lisa üleminek';
+      return "Lisa üleminek";
     }
     if (mode === "NEW_STATE") {
-      return 'Uus olek';
+      return "Uus olek";
     }
     if (mode === "DELETE") {
-      return 'Kustuta';
+      return "Kustuta";
     }
     if (mode === "RUN") {
       return "Jooksuta";
     }
   }
   return (
-    <label className={`button ${currentMode === mode ? 'button-active' : ''}`} onClick={() => toggle()}>
+    <label className={`button ${currentMode === mode ? "button-active" : ""}`} onClick={() => toggle()}>
       {buttonText()}
     </label>
   );

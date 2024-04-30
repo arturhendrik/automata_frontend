@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Network } from 'vis-network';
-import CustomContextMenu from 'components/CustomContextMenu';
-import { customFinalState, customInitialFinalState, customInitialState, customNormalState } from 'utils/customStates';
+import React, { Component } from "react";
+import { Network } from "vis-network";
+import CustomContextMenu from "components/CustomContextMenu";
+import { customFinalState, customInitialFinalState, customInitialState, customNormalState } from "utils/customStates";
 
 class GraphComponent extends Component {
 
@@ -36,7 +36,7 @@ class GraphComponent extends Component {
 
   initGraph(data) {
     // Create a new network instance
-    const container = document.getElementById('network');
+    const container = document.getElementById("network");
     //const data = this.props.data;
     const options = {
       nodes: {
@@ -49,13 +49,13 @@ class GraphComponent extends Component {
         shape: "circle",
         margin: 15,
         color: {
-          background: 'white',
-          border: 'black',
+          background: "white",
+          border: "black",
           hover: {
-            border: 'black'
+            border: "black"
           },
           highlight: {
-            border: 'black'
+            border: "black"
           },
         }
       },
@@ -73,13 +73,13 @@ class GraphComponent extends Component {
         },
         width: 1,
         smooth: {
-          type: 'curvedCW',
+          type: "curvedCW",
           roundness: 0.1 // adjust the roundness of the curve (0 to 1)
         }
       },
       groups: {
         Initial: {
-          shape: 'custom',
+          shape: "custom",
           ctxRenderer: customInitialState
         },
         Final: {
@@ -149,7 +149,7 @@ class GraphComponent extends Component {
 
     const network = new Network(container, data, options);
 
-    network.on('click', (params) => {
+    network.on("click", (params) => {
       this.handleCloseContextMenu();
       if (params.nodes.length === 0) {
         if (this.props.currentMode === "NEW_STATE") {
@@ -190,8 +190,8 @@ class GraphComponent extends Component {
               labelInput = prompt("Enter a single letter for the transition:");
             } while (labelInput && (labelInput.length !== 1 || !/^[a-zA-Z]+$/.test(labelInput)));
 
-            if (labelInput === '') {
-              labelInput = 'λ';
+            if (labelInput === "") {
+              labelInput = "λ";
             }
             if (labelInput !== null) {
               const newTransition = { from: this.props.transitionStartNode, to: params.nodes[0], label: labelInput };
@@ -247,7 +247,7 @@ class GraphComponent extends Component {
 
   render() {
     return <div>
-      <div id="network" className='network-container' />
+      <div id="network" className="network-container" />
       {this.props.isContextMenuVisible && (
         <CustomContextMenu
           xPos={this.props.menuPosition.x}

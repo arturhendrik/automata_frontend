@@ -1,6 +1,6 @@
 function handleUpload(file, dataCallback, uploadTimestampCallback) {
   if (!file) {
-    console.log('No file selected');
+    console.log("No file selected");
     return;
   }
 
@@ -15,30 +15,30 @@ function handleUpload(file, dataCallback, uploadTimestampCallback) {
 
     // Parse the XML string using DOMParser
     const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+    const xmlDoc = parser.parseFromString(xmlString, "text/xml");
 
     // Extract nodes and transitions from the parsed XML document
-    const nodes = Array.from(xmlDoc.querySelectorAll('state')).map(state => ({
-      id: parseInt(state.getAttribute('id')),
-      label: state.getAttribute('name'),
-      x: parseFloat(state.querySelector('x').textContent),
-      y: parseFloat(state.querySelector('y').textContent),
-      group: state.querySelector('initial') && state.querySelector('final') ? 'Initial_Final' :
-             state.querySelector('initial') ? 'Initial' :
-             state.querySelector('final') ? 'Final' : 'Normal'
+    const nodes = Array.from(xmlDoc.querySelectorAll("state")).map(state => ({
+      id: parseInt(state.getAttribute("id")),
+      label: state.getAttribute("name"),
+      x: parseFloat(state.querySelector("x").textContent),
+      y: parseFloat(state.querySelector("y").textContent),
+      group: state.querySelector("initial") && state.querySelector("final") ? "Initial_Final" :
+             state.querySelector("initial") ? "Initial" :
+             state.querySelector("final") ? "Final" : "Normal"
     }));
 
-    const transitions = Array.from(xmlDoc.querySelectorAll('transition')).map(transition => ({
-      from: parseInt(transition.querySelector('from').textContent),
-      to: parseInt(transition.querySelector('to').textContent),
-      label: transition.querySelector('read').textContent || 'λ'
+    const transitions = Array.from(xmlDoc.querySelectorAll("transition")).map(transition => ({
+      from: parseInt(transition.querySelector("from").textContent),
+      to: parseInt(transition.querySelector("to").textContent),
+      label: transition.querySelector("read").textContent || "λ"
     }));
 
     let i = 0;
     while (i < transitions.length) {
       const currentTransition = transitions[i];
 
-    // Find all other transitions with the same 'from' and 'to' values
+    // Find all other transitions with the same "from" and "to" values
       const sameTransitions = transitions.filter(transition =>
         transition.from === currentTransition.from && transition.to === currentTransition.to && transition !== currentTransition
       );
