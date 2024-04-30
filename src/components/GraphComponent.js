@@ -65,7 +65,12 @@ class GraphComponent extends Component {
         }
       },
       edges: {
-        arrows: "to",
+        arrows: {
+          to: {
+            enabled: true,
+            scaleFactor: 0.6,
+          }
+        },
         color: {
           color: "#3e3e3e",
           hover: "#3e3e3e",
@@ -76,7 +81,7 @@ class GraphComponent extends Component {
           align: "top",
           face: "sans-serif"
         },
-        width: 1,
+        width: 0.5,
         smooth: {
           type: "curvedCW",
           roundness: 0.1
@@ -131,6 +136,9 @@ class GraphComponent extends Component {
       },
       physics: {
         enabled: false
+      },
+      interaction: {
+        selectConnectedEdges: false
       }
     };
 
