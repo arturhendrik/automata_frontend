@@ -2,13 +2,13 @@ import React from "react";
 import AutomataRunGraphComponent from "components/AutomataRunGraphComponent";
 import { useTranslation } from "react-i18next";
 
-const AutomataRunComponent = ({ data, currentModeCallback, runString, runAccept, runSteps, readSteps, runIndex}) => {
+const AutomataRunComponent = ({ data, currentModeCallback, runString, runAccept, runSteps, readSteps, runIndex }) => {
 
     const { t } = useTranslation();
 
     return (
         <div>
-            <AutomataRunGraphComponent data={data}/>
+            <AutomataRunGraphComponent data={data} />
             <span className="close-btn" onClick={() => currentModeCallback(null)}>&times;</span>
             <div className="run-info">
                 <div>{t("run_input")}: {"'"}{runString}{"'"}</div>

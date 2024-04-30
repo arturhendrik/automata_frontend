@@ -5,8 +5,8 @@ import UploadButton from "components/UploadButton";
 import NfaToDfaButton from "components/NfaToDfaButton";
 import MinimizeDfaButton from "components/MinimizeDfaButton";
 
-const ToolBar = ({currentMode, currentModeCallback, data, dataCallback, uploadTimestampCallback, errorCallback, runStringCallback, selectedExercise }) => {
-    return(
+const ToolBar = ({ currentMode, currentModeCallback, data, dataCallback, uploadTimestampCallback, errorCallback, runStringCallback, selectedExercise }) => {
+    return (
         <div className="toolbar">
             <ModeButton currentMode={currentMode} currentModeCallback={currentModeCallback} mode="NEW_STATE"></ModeButton>
             <ModeButton currentMode={currentMode} currentModeCallback={currentModeCallback} mode="NEW_TRANSITION"></ModeButton>

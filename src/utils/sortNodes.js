@@ -5,7 +5,7 @@ const sortNodesByGroup = (data) => {
         return groupOrder.indexOf(a.group) - groupOrder.indexOf(b.group);
     });
 
-    return {nodes: sortedNodes, edges: data.edges};
+    return { nodes: sortedNodes, edges: data.edges };
 }
 
 export default sortNodesByGroup

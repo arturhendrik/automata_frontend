@@ -40,30 +40,30 @@ function App() {
       }));
 
       if (initialNodes.length > 0 && runString !== null) {
-          const {runSteps, readSteps, accept} = getRunSteps(initialNodes.at(0).id, data, runString);
-          setRunSteps(runSteps);
-          setReadSteps(readSteps);
-          setRunAccept(accept);
-          if (runString === "") {
-            updatedNodes.forEach(element => {
-              if (runSteps.at(0).includes(element.id)) {
-                if (element.group.includes("Final")) {
-                  element.group = element.group+"_Accepted";
-                } else {
-                  element.group = element.group+"_Notaccepted";
-                }
+        const { runSteps, readSteps, accept } = getRunSteps(initialNodes.at(0).id, data, runString);
+        setRunSteps(runSteps);
+        setReadSteps(readSteps);
+        setRunAccept(accept);
+        if (runString === "") {
+          updatedNodes.forEach(element => {
+            if (runSteps.at(0).includes(element.id)) {
+              if (element.group.includes("Final")) {
+                element.group = element.group + "_Accepted";
+              } else {
+                element.group = element.group + "_Notaccepted";
               }
-            });
-          }
-          else {
-            updatedNodes.forEach(element => {
-              if (runSteps.at(0).includes(element.id)) {
-                element.group = element.group+"_Active";
-              }
-            });
-          }
-          const newData = { nodes: updatedNodes, edges: data.edges };
-          setRunData(newData);
+            }
+          });
+        }
+        else {
+          updatedNodes.forEach(element => {
+            if (runSteps.at(0).includes(element.id)) {
+              element.group = element.group + "_Active";
+            }
+          });
+        }
+        const newData = { nodes: updatedNodes, edges: data.edges };
+        setRunData(newData);
       }
     } else {
       setRunData({ nodes: [], edges: [] });
@@ -72,7 +72,7 @@ function App() {
       setRunString(null);
       setReadSteps([]);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMode]);
   useEffect(() => {
     setContextMenuVisible(false);
@@ -127,7 +127,7 @@ function App() {
       />
       {currentMode === "RUN" ? <RunToolBar runIndex={runIndex} runIndexCallback={runIndexCallback} runDataCallback={runDataCallback} runSteps={runSteps} runData={runData}></RunToolBar> : <ToolBar currentModeCallback={currentModeCallback} currentMode={currentMode} data={data} dataCallback={dataCallback} uploadTimestampCallback={uploadTimestampCallback} errorCallback={errorCallback} runStringCallback={runStringCallback} selectedExercise={selectedExercise}></ToolBar>}
       {error && <ErrorPopup errorMessage={error} errorCallback={errorCallback} />}
-      {currentMode === "RUN" && <AutomataRunComponent data={runData} currentModeCallback={currentModeCallback} runString={runString} runAccept={runAccept} runSteps={runSteps} readSteps={readSteps} runIndex={runIndex}/>}
+      {currentMode === "RUN" && <AutomataRunComponent data={runData} currentModeCallback={currentModeCallback} runString={runString} runAccept={runAccept} runSteps={runSteps} readSteps={readSteps} runIndex={runIndex} />}
       <LanguaageSelector></LanguaageSelector>
       <TestButton data={data} currentModeCallback={currentModeCallback} errorCallback={errorCallback} selectedExerciseCallback={selectedExerciseCallback} selectedExercise={selectedExercise}></TestButton>
     </div>

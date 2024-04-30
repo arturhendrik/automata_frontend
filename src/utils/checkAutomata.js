@@ -36,7 +36,7 @@ const checkAutomata = (data) => {
             isNFA = true;
         }
     });
-    return {hasInitialNode, hasFinalNode, isNFA};
+    return { hasInitialNode, hasFinalNode, isNFA };
 };
 
 export default checkAutomata;
