@@ -108,7 +108,7 @@ code {
   padding: 4px;
   color: black;
   text-align: center;
-  text-decoration: none;
+  text-decoration: underline;
   font-size: 14px;
   user-select: none;
 }

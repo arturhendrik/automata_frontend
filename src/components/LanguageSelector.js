@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const languages = [
-    { code: "et", lang: "Eesti" },
+    { code: "et", lang: "Eesti keel" },
     { code: "en", lang: "English" }
 ]
 
