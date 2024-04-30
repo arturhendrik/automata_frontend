@@ -1,0 +1,46 @@
+{
+    "en": {
+      "translation": {
+            "run_input": "Input",
+            "run_input_processed": "Input processed",
+            "run_accept": "The automata accepts the input",
+            "run_reject": "The automata rejects the input",
+            "initial": "Initial",
+            "final": "Final",
+            "minimize": "Minimize DFA",
+            "NEW_STATE": "New state",
+            "DELETE": "Delete",
+            "RUN": "Run",
+            "NEW_TRANSITION": "New transition",
+            "new_transition_start": "Select starting state",
+            "new_transition_end": "Select end state",
+            "error_needs_initial": "The automaton need an initial state",
+            "error_not_dfa": "This is not a DFA",
+            "simulate_word": "Enter a word to simulate",
+            "error_not_nfa": "This is not a NFA",
+            "enter_letter": "Enter a single letter for the transition"
+        }
+    },
+    "et": {
+      "translation": {
+            "run_input": "Sisendsõna",
+            "run_input_processed": "Sisendsõnast töödeldud",
+            "run_accept": "Automaat võtab sisendsõna vastu",
+            "run_reject": "Automaat ei võta sisendsõna vastu",
+            "initial": "Algolek",
+            "final": "Lõppõlek",
+            "minimize": "Minimeeri DFA",
+            "NEW_STATE": "Uus olek",
+            "DELETE": "Kustuta",
+            "RUN": "Jooksuta",
+            "NEW_TRANSITION": "Lisa üleminek",
+            "new_transition_start": "Vali alguspunkt",
+            "new_transition_end": "Vali lõpp-punkt",
+            "error_needs_initial": "Automaadil peab olema algolek",
+            "error_not_dfa": "See ei ole DFA",
+            "simulate_word": "Sisesta sisendsõna",
+            "error_not_nfa": "See ei ole NFA",
+            "enter_letter": "Sisesta täht üleminekuks"
+        }
+    }
+}

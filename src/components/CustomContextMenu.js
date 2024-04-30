@@ -1,6 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const CustomContextMenu = ({ xPos, yPos, onClose, optionSelectedCallback, selectedOption }) => {
+
+  const { t } = useTranslation();
+
   const handleOptionClick = (option) => {
     if (selectedOption === option) {
       optionSelectedCallback("Normal");
@@ -42,7 +46,7 @@ const CustomContextMenu = ({ xPos, yPos, onClose, optionSelectedCallback, select
           checked={selectedOption === "Initial" || selectedOption === "Initial_Final"}
           onChange={() => handleOptionClick("Initial")}
         />
-        Initial
+        {t("initial")}
       </label>
       <label>
         <input
@@ -50,7 +54,7 @@ const CustomContextMenu = ({ xPos, yPos, onClose, optionSelectedCallback, select
           checked={selectedOption === "Final" || selectedOption === "Initial_Final"}
           onChange={() => handleOptionClick("Final")}
         />
-        Final
+        {t("final")}
       </label>
     </div>
   );

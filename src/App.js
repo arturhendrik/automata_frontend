@@ -6,6 +6,7 @@ import ErrorPopup from "components/ErrorPopup";
 import AutomataRunComponent from "components/AutomataRunComponent";
 import RunToolBar from "components/RunToolBar";
 import { getRunSteps } from "utils/automataRun";
+import LanguaageSelector from "components/LanguageSelector";
 
 function App() {
   const [currentMode, setCurrentMode] = useState(null);
@@ -128,6 +129,7 @@ function App() {
       {currentMode === "RUN" ? <RunToolBar runIndex={runIndex} runIndexCallback={runIndexCallback} runDataCallback={runDataCallback} runSteps={runSteps} runData={runData}></RunToolBar> : <ToolBar currentModeCallback={currentModeCallback} currentMode={currentMode} transitionStartNode={transitionStartNode} data={data} dataCallback={dataCallback} uploadTimestampCallback={uploadTimestampCallback} errorCallback={errorCallback} runStringCallback={runStringCallback}></ToolBar>}
       {error && <ErrorPopup errorMessage={error} errorCallback={errorCallback} />}
       {currentMode === "RUN" && <AutomataRunComponent data={runData} currentModeCallback={currentModeCallback} runString={runString} runAccept={runAccept} runSteps={runSteps} readSteps={readSteps} runIndex={runIndex}/>}
+      <LanguaageSelector></LanguaageSelector>
     </div>
   );
 }

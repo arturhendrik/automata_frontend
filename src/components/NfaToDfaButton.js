@@ -6,16 +6,13 @@ import checkAutomata from "utils/checkAutomata";
 const NfaToDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback, uploadTimestampCallback }) => {
 
     const handleConversion = async (data) => {
-        const { hasInitialNode, hasFinalNode, isNFA } = checkAutomata(data);
+        const { hasInitialNode, isNFA } = checkAutomata(data);
         currentModeCallback(null);
         if (!hasInitialNode) {
-            errorCallback("The automaton needs an initial state");
+            errorCallback("error_needs_initial");
         }
-        // else if (!hasFinalNode) {
-        //     errorCallback("The automaton needs at least one final state");
-        // }
         else if (!isNFA) {
-            errorCallback("This is not a NFA");
+            errorCallback("error_not_nfa");
         }
         else {
             errorCallback(null);

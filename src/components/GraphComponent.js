@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Network } from "vis-network";
 import CustomContextMenu from "components/CustomContextMenu";
 import { customFinalState, customInitialFinalState, customInitialState, customNormalState } from "utils/customStates";
+import i18next from "i18n";
 
 class GraphComponent extends Component {
 
@@ -35,9 +36,7 @@ class GraphComponent extends Component {
   }
 
   initGraph(data) {
-    // Create a new network instance
     const container = document.getElementById("network");
-    //const data = this.props.data;
     const options = {
       nodes: {
         borderWidth: 1,
@@ -74,7 +73,7 @@ class GraphComponent extends Component {
         width: 1,
         smooth: {
           type: "curvedCW",
-          roundness: 0.1 // adjust the roundness of the curve (0 to 1)
+          roundness: 0.1
         }
       },
       groups: {
@@ -104,13 +103,11 @@ class GraphComponent extends Component {
     };
 
     this.updateGraph = (data) => {
-      // store previous view properties to avoid vis.js auto view move
       const previousScale = network.getScale();
       const previousViewPosition = network.getViewPosition();
 
       network.setData(data);
 
-      // restore previous view properties
       network.moveTo({
         position: previousViewPosition,
         scale: previousScale,
@@ -187,7 +184,7 @@ class GraphComponent extends Component {
             let labelInput;
 
             do {
-              labelInput = prompt("Enter a single letter for the transition:");
+              labelInput = prompt(i18next.t("enter_letter"));
             } while (labelInput && (labelInput.length !== 1 || !/^[a-zA-Z]+$/.test(labelInput)));
 
             if (labelInput === "") {

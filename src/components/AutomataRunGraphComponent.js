@@ -20,7 +20,6 @@ class AutomataRunGraphComponent extends Component {
     }
 
     initGraph(data) {
-        // Create a new network instance
         const container = document.getElementById("run-network");
         const options = {
             nodes: {
@@ -49,7 +48,7 @@ class AutomataRunGraphComponent extends Component {
                 width: 1,
                 smooth: {
                     type: "curvedCW",
-                    roundness: 0.1 // adjust the roundness of the curve (0 to 1)
+                    roundness: 0.1
                 }
             },
             groups: {

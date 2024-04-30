@@ -2,20 +2,20 @@ import React from "react";
 import postRequest from "services/postRequest";
 import sortNodesByGroup from "utils/sortNodes";
 import checkAutomata from "utils/checkAutomata";
+import { useTranslation } from "react-i18next";
 
 const MinimizeDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback, uploadTimestampCallback }) => {
 
+    const { t } = useTranslation();
+
     const handleConversion = async (data) => {
-        const { hasInitialNode, hasFinalNode, isNFA } = checkAutomata(data);
+        const { hasInitialNode, isNFA } = checkAutomata(data);
         currentModeCallback(null);
         if (!hasInitialNode) {
-            errorCallback("The automaton needs an initial state");
+            errorCallback("error_needs_initial");
         }
-        // else if (!hasFinalNode) {
-        //     errorCallback("The automaton needs at least one final state");
-        // }
         else if (isNFA) {
-            errorCallback("This is not a DFA");
+            errorCallback("error_not_dfa");
         }
         else {
             errorCallback(null);
@@ -35,7 +35,7 @@ const MinimizeDfaButton = ({ data, currentModeCallback, errorCallback, dataCallb
 
     return (
         <label className="button" onClick={async () => await handleConversion(data)}>
-            Minimeeri DFA
+            {t("minimize")}
         </label>
     );
 };

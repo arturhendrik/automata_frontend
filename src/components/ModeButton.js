@@ -1,7 +1,11 @@
 import React from "react";
 import checkAutomata from "utils/checkAutomata";
+import { useTranslation } from "react-i18next";
 
-const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNode, errorCallback, data, runStringCallback}) => {
+const ModeButton = ({ currentMode, currentModeCallback, mode, transitionStartNode, errorCallback, data, runStringCallback }) => {
+
+  const { t } = useTranslation();
+
   const toggle = () => {
     if (currentMode === mode) {
       currentModeCallback(null);
@@ -10,15 +14,15 @@ const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNode
       if (mode === "RUN") {
         const { hasInitialNode } = checkAutomata(data);
         if (!hasInitialNode) {
-            errorCallback("The automaton needs an initial state");
-            currentModeCallback(null);
+          errorCallback("error_needs_initial");
+          currentModeCallback(null);
         }
         else {
           let input;
 
-            do {
-              input = prompt("Enter a word to simulate:");
-            } while (input && (!/^[a-zA-Z]+$/.test(input)));
+          do {
+            input = prompt(t("simulate_word"));
+          } while (input && (!/^[a-zA-Z]+$/.test(input)));
           runStringCallback(input);
           if (input === null) {
             currentModeCallback(null);
@@ -29,33 +33,24 @@ const ModeButton = ({currentMode, currentModeCallback, mode, transitionStartNode
         }
       }
       else {
-        currentModeCallback(mode); 
+        currentModeCallback(mode);
       }
     }
   };
   const buttonText = () => {
-    if (mode === "NEW_TRANSITION") {
-      if (currentMode === "NEW_TRANSITION") {
-        if (transitionStartNode === null) {
-          return "Vali alguspunkt";
-        }
-        return "Vali lõpp-punkt";
+    if (mode === "NEW_TRANSITION" && currentMode === "NEW_TRANSITION") {
+      if (transitionStartNode === null) {
+        return "new_transition_start";
       }
-      return "Lisa üleminek";
+      return "new_transition_end";
     }
-    if (mode === "NEW_STATE") {
-      return "Uus olek";
-    }
-    if (mode === "DELETE") {
-      return "Kustuta";
-    }
-    if (mode === "RUN") {
-      return "Jooksuta";
+    else {
+      return mode;
     }
   }
   return (
     <label className={`button ${currentMode === mode ? "button-active" : ""}`} onClick={() => toggle()}>
-      {buttonText()}
+      {t(buttonText())}
     </label>
   );
 };
