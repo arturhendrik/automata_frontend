@@ -36,7 +36,12 @@ class AutomataRunGraphComponent extends Component {
                 }
             },
             edges: {
-                arrows: "to",
+                arrows: {
+                    to: {
+                        enabled: true,
+                        scaleFactor: 0.6,
+                    }
+                },
                 color: {
                     color: "#3e3e3e",
                     inherit: false
