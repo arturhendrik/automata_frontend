@@ -42,11 +42,11 @@ const ExerciseContainer = ({ data, currentModeCallback, errorCallback, selectedE
                         <option key={index + 1} value={index + 1}>{t("exercise")} {index + 1}</option>
                     ))}
                 </select>
-                <label className="button" onClick={async () => await handleConversion(data, selectedExercise)}>
+                <div className="button" onClick={async () => await handleConversion(data, selectedExercise)}>
                     {t("test")}
-                </label>
+                </div>
             </div>
-            <label>{t("exercise" + selectedExercise)}</label>
+            <div>{t("exercise" + selectedExercise)}</div>
         </div>
     );
 };

@@ -33,9 +33,9 @@ const MinimizeDfaButton = ({ data, currentModeCallback, errorCallback, dataCallb
     }
 
     return (
-        <label className="button" onClick={async () => await handleConversion(data)}>
+        <div className="button" onClick={async () => await handleConversion(data)}>
             {t("minimize")}
-        </label>
+        </div>
     );
 };
 

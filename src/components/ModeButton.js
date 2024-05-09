@@ -39,9 +39,9 @@ const ModeButton = ({ currentMode, currentModeCallback, mode, errorCallback, dat
   };
 
   return (
-    <label className={`button ${currentMode === mode ? "button-active" : ""}`} onClick={() => toggle()}>
+    <div className={`button ${currentMode === mode ? "button-active" : ""}`} onClick={() => toggle()}>
       {t(mode)}
-    </label>
+    </div>
   );
 };
 

@@ -18,9 +18,9 @@ const LanguaageSelector = () => {
         <div className="language-container">
             {languages.map((lng) => {
                 return (
-                    <label key={lng.code} className={`language-button ${lng.code === i18n.language ? "language-button-selected" : ""}`} onClick={() => changeLanguage(lng.code)}>
+                    <div key={lng.code} className={`language-button ${lng.code === i18n.language ? "language-button-selected" : ""}`} onClick={() => changeLanguage(lng.code)}>
                         {lng.lang}
-                    </label>
+                    </div>
                 )
             })}
         </div>

@@ -30,9 +30,9 @@ const NfaToDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback
     }
 
     return (
-        <label className="button" onClick={async () => await handleConversion(data)}>
+        <div className="button" onClick={async () => await handleConversion(data)}>
             NFA -{">"} DFA
-        </label>
+        </div>
     );
 };
 
