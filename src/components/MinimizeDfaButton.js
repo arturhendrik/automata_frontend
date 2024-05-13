@@ -27,7 +27,7 @@ const MinimizeDfaButton = ({ data, currentModeCallback, errorCallback, dataCallb
                 uploadTimestampCallback(timestamp);
 
             } catch (error) {
-                console.error("Error:", error);
+                errorCallback("server_error")
             }
         }
     }

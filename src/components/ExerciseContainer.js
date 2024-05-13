@@ -29,7 +29,7 @@ const ExerciseContainer = ({ data, currentModeCallback, errorCallback, selectedE
                     errorCallback(newData[0])
                 }
             } catch (error) {
-                console.error("Error:", error);
+                errorCallback("server_error")
             }
         }
     }

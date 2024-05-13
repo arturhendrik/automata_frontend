@@ -24,7 +24,7 @@ const NfaToDfaButton = ({ data, currentModeCallback, errorCallback, dataCallback
                 uploadTimestampCallback(timestamp);
 
             } catch (error) {
-                console.error("Error:", error);
+                errorCallback("server_error")
             }
         }
     }

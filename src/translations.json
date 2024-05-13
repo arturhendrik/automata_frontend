@@ -34,7 +34,8 @@
             "exercise10": "Words over the alphabet {a,b}, in which both letters occur at least once",
             "exercise11": "Words over the alphabet {a,b}, that match the regular expression \"(a*b)*\" or in which both letters occur at least once",
             "exercise12": "Words over the alphabet {a,b}, that contain the substring \"bb\" and that match the regular expression \"(a*b)*\"",
-            "success": "Tests passed!"
+            "success": "Tests passed!",
+            "server_error": "Connection to server failed"
         }
     },
     "et": {
@@ -72,7 +73,8 @@
             "exercise10": "Sõnad üle tähestiku {a,b}, milles on mõlemat tähte vähemalt üks",
             "exercise11": "Sõnad üle tähestiku {a,b}, mis sobituvad regulaaravaldisega \"(a*b)*\" või milles on mõlemat tähte vähemalt üks",
             "exercise12": "Sõnad üle tähestiku {a,b}, mis sisaldavad alamsõne \"bb\" ja sobituvad regulaaravaldisega \"(a*b)*\"",
-            "success": "Testid läbitud, tubli!"
+            "success": "Testid läbitud, tubli!",
+            "server_error": "Serveriga ei saa ühendust"
         }
     }
 }
