@@ -22,7 +22,7 @@ const ModeButton = ({ currentMode, currentModeCallback, mode, errorCallback, dat
 
           do {
             input = prompt(t("simulate_word"));
-          } while (input && (!/^[a-zA-Z]+$/.test(input)));
+          } while (input && (!/^[a-zA-ZäöüõÄÖÜÕ]+$/.test(input)));
           runStringCallback(input);
           if (input === null) {
             currentModeCallback(null);

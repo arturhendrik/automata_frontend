@@ -111,7 +111,7 @@ class GraphComponent extends Component {
           let labelInput;
           do {
             labelInput = prompt(i18next.t("enter_letter"));
-          } while (labelInput && (labelInput.length !== 1 || !/^[a-zA-Z]+$/.test(labelInput)));
+          } while (labelInput && (labelInput.length !== 1 || !/^[a-zA-ZäöüõÄÖÜÕ]+$/.test(labelInput)));
           if (labelInput === "") {
             labelInput = "λ";
           }
@@ -138,7 +138,8 @@ class GraphComponent extends Component {
         enabled: false
       },
       interaction: {
-        selectConnectedEdges: false
+        selectConnectedEdges: false,
+        zoomSpeed: 0.5
       }
     };
 

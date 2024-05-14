@@ -9,7 +9,7 @@ const AutomataRunComponent = ({ data, currentModeCallback, runString, runAccept,
     return (
         <div>
             <AutomataRunGraphComponent data={data} />
-            <span className="close-btn" onClick={() => currentModeCallback(null)}>&times;</span>
+            <span className="close-btn close-btn-big" onClick={() => currentModeCallback(null)}>&times;</span>
             <div className="run-info">
                 <div>{t("run_input")}: {"'"}{runString}{"'"}</div>
                 <div>{t("run_input_processed")}: {"'"}{readSteps.at(runIndex)}{"'"}</div>

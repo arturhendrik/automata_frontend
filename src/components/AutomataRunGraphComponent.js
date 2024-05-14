@@ -76,28 +76,28 @@ class AutomataRunGraphComponent extends Component {
                 Initial_Active: {
                     shape: "custom",
                     color: {
-                        background: "#9c9695",
+                        background: "#b6ccf0",
                     },
                     ctxRenderer: customInitialState
                 },
                 Final_Active: {
                     shape: "custom",
                     color: {
-                        background: "#9c9695",
+                        background: "#b6ccf0",
                     },
                     ctxRenderer: customFinalState
                 },
                 Initial_Final_Active: {
                     shape: "custom",
                     color: {
-                        background: "#9c9695",
+                        background: "#b6ccf0",
                     },
                     ctxRenderer: customInitialFinalState
                 },
                 Normal_Active: {
                     shape: "custom",
                     color: {
-                        background: "#9c9695",
+                        background: "#b6ccf0",
                     },
                     ctxRenderer: customNormalState
                 },

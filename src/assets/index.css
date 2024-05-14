@@ -86,6 +86,11 @@ code {
   z-index: 9999;
 }
 
+.close-btn-big {
+  font-size: 35px;
+  right: 20px;
+}
+
 .run-info {
   position: absolute;
   top: 0px;
