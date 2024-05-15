@@ -4,4 +4,4 @@ Development mode'is käivitamiseks kasuta käsklust "npm start" ja avage ([http:
 
 Buildimiseks kasutage käsklust "npm run build"
 
-Backend asub lingil: https://github.com/arturhendrik/automata_frontend
+Backend asub lingil: https://github.com/arturhendrik/automata_backend
