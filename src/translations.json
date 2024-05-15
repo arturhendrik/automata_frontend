@@ -37,7 +37,8 @@
             "success": "Tests passed!",
             "server_error": "Connection to server failed",
             "download_tooltip": "Download automaton",
-            "upload_tooltip": "Upload automaton"
+            "upload_tooltip": "Upload automaton",
+            "error_already_minimized": "DFA is already minimal"
         }
     },
     "et": {
@@ -78,7 +79,8 @@
             "success": "Testid läbitud, tubli!",
             "server_error": "Serveriga ei saa ühendust",
             "download_tooltip": "Lae automaat alla",
-            "upload_tooltip": "Lae automaat üles"
+            "upload_tooltip": "Lae automaat üles",
+            "error_already_minimized": "DFA on juba minimaalne"
         }
     }
 }

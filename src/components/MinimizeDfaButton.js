@@ -19,13 +19,17 @@ const MinimizeDfaButton = ({ data, currentModeCallback, errorCallback, dataCallb
         }
         else {
             try {
-                errorCallback(null);
                 const sortedNodes = sortNodesByGroup(data);
                 const newData = await postRequest(sortedNodes, "minimize-dfa");
-                dataCallback(newData);
-                const timestamp = Date.now();
-                uploadTimestampCallback(timestamp);
-
+                if (newData.nodes.length === data.nodes.length) {
+                    errorCallback("error_already_minimized");
+                }
+                else {
+                    errorCallback(null);
+                    dataCallback(newData);
+                    const timestamp = Date.now();
+                    uploadTimestampCallback(timestamp);
+                }
             } catch (error) {
                 errorCallback("server_error")
             }
